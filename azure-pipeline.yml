@@ -11,9 +11,6 @@ steps:
   fetchDepth: 0
   fetchTags: "false"
  
-- task: NodeTool@0 
-  displayName: 'Install Node.js'
-
 - script:
     npm install
   displayName: 'Install dependencies'  
@@ -26,6 +23,6 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**/TEST-*.xml'
+    testResultsFiles: '**/cypress/results/results-*.xml'
     failTaskOnFailedTests: true
     testRunTitle: 'Cypress tests'
