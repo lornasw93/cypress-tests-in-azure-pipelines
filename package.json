@@ -3,10 +3,15 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "start": "vite",
+    "start:e2e": "cross-env VITE_EHR_SERVER_URL=/ npm run build && npm run serve",
     "build": "tsc && vite build",
-    "preview": "vite preview",
-    "cypress:run": "cypress run --config video=false --component"
+    "serve": "vite preview",
+    "test": "npm run test:unit && npm run test:component",
+    "test:e2e": "cypress run -q",
+    "test:component": "cypress run -q --component",
+    "test:unit": "vitest run --coverage",
+    "cy:run-junit-reporter": "cypress run --reporter junit --reporter-options 'mochaFile=cypress/results/results-[hash].xml,toConsole=true'"
   },
   "dependencies": {
     "@cypress/code-coverage": "^3.10.8",
