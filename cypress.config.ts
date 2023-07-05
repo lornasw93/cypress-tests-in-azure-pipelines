@@ -7,6 +7,13 @@ export default defineConfig({
     },
   },
  
+  e2e: {
+    defaultCommandTimeout: 6000, // set command timeout to 6secs
+    baseUrl: "http://localhost:4173",
+    video: process.env.CYPRESS_E2E_VIDEO === "true",
+    videoCompression: 50,
+  },
+
   component: {
     viewportHeight: 800,
     viewportWidth: 1280,
@@ -18,13 +25,6 @@ export default defineConfig({
     supportFile: "cypress/support/component.tsx",
   },
 
-  e2e: {
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
-    },
-  },
-
-  
   reporter: "junit",
   reporterOptions: {
     mochaFile: "cypress/results/results-[hash].xml",

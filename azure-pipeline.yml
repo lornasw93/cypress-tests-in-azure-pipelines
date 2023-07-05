@@ -11,11 +11,6 @@ steps:
   fetchDepth: 0
   fetchTags: "false"
 
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
-
 - script:
     npm install
   displayName: 'Install dependencies'  
