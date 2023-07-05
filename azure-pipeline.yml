@@ -1,0 +1,28 @@
+trigger:
+  branches:
+    include:
+    - master
+
+pool:
+  vmImage: 'windows-2022'
+
+steps:
+- checkout: self
+  fetchDepth: 0
+  fetchTags: "false"
+
+- script:
+    npm install
+  displayName: 'Install dependencies'  
+
+- script:
+    npm run cy:run-junit-reporter
+  continueOnError: true
+  displayName: 'Execute cypress tests'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/results-*.xml'
+    failTaskOnFailedTests: true
+    testRunTitle: 'Cypress tests'
