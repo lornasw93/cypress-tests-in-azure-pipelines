@@ -1,11 +1,16 @@
 trigger:
   paths:
     include:
-      - '*'
+      - master
+
 pool:
   vmImage: 'windows-2022'
 
 steps:
+- checkout: self
+  fetchDepth: 0
+  fetchTags: "false"
+
 - task: NodeTool@0
   inputs:
     versionSpec: '10.x'
@@ -14,10 +19,6 @@ steps:
 - script:
     npm install
   displayName: 'Install dependencies'  
-
-- script:
-    npm run cy:verify
-  displayName: 'Cypress verify'
 
 - script:
     npm run cy:run-junit-reporter
