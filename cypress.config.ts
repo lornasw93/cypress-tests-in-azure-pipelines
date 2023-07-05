@@ -10,7 +10,7 @@ export default defineConfig({
   e2e: {
     defaultCommandTimeout: 6000, // set command timeout to 6secs
     baseUrl: "http://localhost:4173",
-    video: process.env.CYPRESS_E2E_VIDEO === "true",
+    video: true,
     videoCompression: 50,
   },
 
