@@ -14,7 +14,7 @@
     "cy:verify": "cypress verify",
     "cy:info": "cypress info",
     "cy:run-junit-reporter:component": "cypress run -q --component --reporter junit",
-    "cy:run-junit-reporter:e2e": "cypress run --reporter junit --spec \"cypress/e2e/signing-up.cy.ts\""
+    "cy:run-junit-reporter:e2e": "cypress run --reporter junit --spec \"cypress/e2e/todo.cy.ts\""
   },
   "dependencies": {
     "@cypress/code-coverage": "^3.10.8",
