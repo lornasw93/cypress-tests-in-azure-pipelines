@@ -11,24 +11,35 @@ steps:
   fetchDepth: 0
   fetchTags: "false"
  
-- task: PowerShell@2
-  name: Cypress_Tests
-  displayName: 'Install dependencies and run cypress tests'
+
+- task: NodeTool@0
   inputs:
-    targetType: 'inline'
-    script: |
-      Write-Output 'Install dependencies'
-      npm install
+    versionSpec: '18.x'
+  displayName: 'Install Node.js'
 
-      Write-Output 'Attempt to run cypress tests'
-      npm run start:e2e
+# Install Node dependencies
+- script: npm ci
+  displayName: 'Install NPM dependencies'
 
-      Write-Output 'Attempt to generate cypress e2e reports'
-      npm run cy:run-junit-reporter:e2e
+- script: npm run cy:verify
+  displayName: 'Cypress verify'
 
-      Write-Output 'Attempt to generate cypress component reports'
-      npm run cy:run-junit-reporter:component
+- script: npm run cy:info
+  displayName: 'Cypress info'
 
+- script: |
+    npx print-env AGENT
+    npx print-env BUILD
+    npx print-env SYSTEM
+    npm run start & npm run cy:run-junit-reporter:e2e
+  displayName: 'Run Cypress tests'
+
+
+
+
+
+
+ 
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
