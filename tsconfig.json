@@ -4,6 +4,8 @@
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "types": [
+      "vite/client",
+      "cypress-axe",
       "cypress"
     ],
     "baseUrl": "./",

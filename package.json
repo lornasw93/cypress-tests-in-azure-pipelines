@@ -7,19 +7,18 @@
     "start:e2e": "cross-env VITE_EHR_SERVER_URL=/ npm run build && npm run serve",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "pretest": "rimraf .nyc_output coverage .reports && mkdir .nyc_output .nyc_output/reports",
-    "posttest": "npm run posttest:unit && npm run posttest:component && npm run cover:combine && npm run cover:report",
-    "posttest:unit": "cp .reports/vitest/coverage-final.json .nyc_output/reports/from-vitest.json",
-    "posttest:component": "cp .reports/cy/coverage-final.json .nyc_output/reports/from-cypress.json",
     "test": "npm run test:unit && npm run test:component",
     "test:e2e": "cypress run -q",
     "test:component": "cypress run -q --component",
     "test:unit": "vitest run --coverage",
-    "cy:run-junit-reporter": "cypress run --reporter junit --reporter-options 'mochaFile=cypress/results/results-[hash].xml,toConsole=true'"
+    "cy:run-junit-reporter:e2e": "cypress run -q --component --reporter junit",
+    "cy:run-junit-reporter:component": "cypress run --reporter junit"
   },
   "dependencies": {
     "@cypress/code-coverage": "^3.10.8",
-    "msw": "^0.39.2",
+    "cross-env": "^7.0.3",
+    "cypress-axe": "^1.4.0",
+    "msw": "^1.2.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },

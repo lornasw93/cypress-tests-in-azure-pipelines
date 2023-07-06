@@ -11,18 +11,27 @@ steps:
   fetchDepth: 0
   fetchTags: "false"
  
-- script:
-    npm install
-  displayName: 'Install dependencies'  
+- task: PowerShell@2
+  name: Cypress_Tests
+  displayName: 'Install dependencies and run cypress tests'
+  inputs:
+    targetType: 'inline'
+    script: |
+      Write-Output 'Install dependencies'
+      npm install
+      
+      Write-Output 'Attempt to clear existing reports (if any)'
+      Remove-Item $(Pipeline.Workspace)/s/PatientPortal/src/Portal.Api/ClientApp/cypress/reports/* -Recurse -Force
 
-- script:
-    npm run cy:run-junit-reporter
-  continueOnError: true
-  displayName: 'Execute cypress tests'
+      Write-Output 'Attempt to generate cypress e2e reports'
+      npm run cy:run-junit-reporter:e2e
+
+      Write-Output 'Attempt to generate cypress component reports'
+      npm run cy:run-junit-reporter:component
 
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**/cypress/results/results-*.xml'
+    testResultsFiles: '$(Pipeline.Workspace)/s/PatientPortal/src/Portal.Api/ClientApp/cypress/reports/report-*.xml'
     failTaskOnFailedTests: true
     testRunTitle: 'Cypress tests'
