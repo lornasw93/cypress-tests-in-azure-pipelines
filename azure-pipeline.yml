@@ -47,7 +47,7 @@ steps:
   displayName: 'Cypress info'
 
 - script: |
-    npm run start:e2e & npx cypress run --record --parallel --ci-build-id $BUILD_BUILDNUMBER --group "Azure CI"
+    npm run start:e2e & npx cypress run --reporter junit
   displayName: 'Run Cypress tests'
 
 - task: PublishTestResults@2
