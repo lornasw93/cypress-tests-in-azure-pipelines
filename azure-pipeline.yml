@@ -47,12 +47,12 @@ steps:
   displayName: 'Cypress info'
 
 - script: |
-    npm run start:e2e & npx cypress run --reporter junit
+    npm run start:e2e & npm run cy:run-junit-reporter:e2e
   displayName: 'Run Cypress tests'
 
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '$(Pipeline.Workspace)/s/PatientPortal/src/Portal.Api/ClientApp/cypress/reports/report-*.xml'
+    testResultsFiles: '$(Pipeline.Workspace)/s/react-vite-ts/cypress/reports/report-*.xml'
     failTaskOnFailedTests: true
     testRunTitle: 'Cypress tests'
