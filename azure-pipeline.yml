@@ -47,9 +47,6 @@ steps:
   displayName: 'Cypress info'
 
 - script: |
-    npx print-env AGENT
-    npx print-env BUILD
-    npx print-env SYSTEM
     npm run start:e2e & npm run cy:run-junit-reporter:e2e
   displayName: 'Run Cypress tests'
 
