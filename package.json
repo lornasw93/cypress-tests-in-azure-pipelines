@@ -11,6 +11,8 @@
     "test:e2e": "cypress run -q",
     "test:component": "cypress run -q --component",
     "test:unit": "vitest run --coverage",
+    "cy:verify": "cypress verify",
+    "cy:info": "cypress info",
     "cy:run-junit-reporter:e2e": "cypress run -q --component --reporter junit",
     "cy:run-junit-reporter:component": "cypress run --reporter junit"
   },
