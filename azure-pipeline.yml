@@ -19,7 +19,10 @@ steps:
     script: |
       Write-Output 'Install dependencies'
       npm install
-      
+
+      Write-Output 'Attempt to run cypress tests'
+      npm run start:e2e
+
       Write-Output 'Attempt to generate cypress e2e reports'
       npm run cy:run-junit-reporter:e2e
 
