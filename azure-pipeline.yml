@@ -50,7 +50,7 @@ steps:
     npx print-env AGENT
     npx print-env BUILD
     npx print-env SYSTEM
-    npm run start & npm run cy:run-junit-reporter:e2e
+    npm run start & npx cypress run --reporter junit   
   displayName: 'Run Cypress tests'
 
 - task: PublishTestResults@2
