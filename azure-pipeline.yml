@@ -20,9 +20,6 @@ steps:
       Write-Output 'Install dependencies'
       npm install
       
-      Write-Output 'Attempt to clear existing reports (if any)'
-      Remove-Item $(Pipeline.Workspace)/s/PatientPortal/src/Portal.Api/ClientApp/cypress/reports/* -Recurse -Force
-
       Write-Output 'Attempt to generate cypress e2e reports'
       npm run cy:run-junit-reporter:e2e
 
