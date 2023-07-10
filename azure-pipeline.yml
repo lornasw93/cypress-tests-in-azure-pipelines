@@ -16,7 +16,6 @@ steps:
     versionSpec: '18.x'
   displayName: 'Install Node.js'
 
-# Install Node dependencies
 - script: npm ci
   displayName: 'Install NPM dependencies'
 
@@ -29,7 +28,7 @@ steps:
 - script: |
     npm install -g wait-on
     npm run start:e2e & wait-on http://localhost:3000
-    npm run cy:run-junit-reporter:e2e
+    npx cypress run --reporter junit --spec "cypress/e2e/todo.cy.ts"
   displayName: 'Run Cypress tests'
 
 - task: PublishTestResults@2
