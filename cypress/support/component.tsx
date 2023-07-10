@@ -19,7 +19,6 @@ import React from "react";
 import { mount, MountOptions } from "cypress/react18";
 import { MemoryRouter, MemoryRouterProps } from "react-router-dom";
 import { Provider } from "react-redux";
-// import { store } from "src/store/store";
 
 import "@cypress/code-coverage/support";
 import "./commands";
@@ -35,13 +34,11 @@ declare global {
 
 type CustomMountOptions = MountOptions & {
   routerProps: MemoryRouterProps;
-  //reduxStore: typeof store;
 };
 
 Cypress.Commands.add("mount", (component, options = {}) => {
   const {
     routerProps = { initialEntries: ["/"] },
-    //reduxStore = store,
     ...mountOptions
   } = options as CustomMountOptions;
 
