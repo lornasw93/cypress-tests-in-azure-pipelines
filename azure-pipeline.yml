@@ -47,11 +47,12 @@ steps:
   displayName: 'Cypress info'
 
 - script: |
-    npm run start & 
+    npm run start:e2e & 
     npx cypress run --reporter junit --spec "cypress/e2e/todo.cy.ts"
   displayName: 'Run Cypress tests'
 
 - task: PublishTestResults@2
+  displayName: 'Publish test results'
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: '/cypress/reports/report-*.xml'
