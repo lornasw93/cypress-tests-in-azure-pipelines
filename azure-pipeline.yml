@@ -46,16 +46,11 @@ steps:
 - script: npm run cy:info
   displayName: 'Cypress info'
 
-
 - script: |
-    npm run start:e2e &
-    npx cypress run --record --parallel --ci-build-id $BUILD_BUILDNUMBER --group "Azure CI"
+    npm install -g wait-on
+    npm run start:e2e & wait-on http://localhost:3000
+    npm run cy:run-junit-reporter:e2e
   displayName: 'Run Cypress tests'
-  env:
-    # avoid warnings about terminal
-    TERM: xterm
-    # map the secret Cypress record key as environment variable for this step
-    CYPRESS_RECORD_KEY: f99df0ca-c161-42c4-8c1a-ebcc0384c0de
 
 - task: PublishTestResults@2
   displayName: 'Publish test results'

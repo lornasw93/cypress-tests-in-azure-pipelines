@@ -11,14 +11,10 @@
     "test:e2e": "cypress run -q",
     "test:component": "cypress run -q --component",
     "test:unit": "vitest run --coverage",
-    "e2e:record": "cypress run --record",
     "cy:verify": "cypress verify",
     "cy:info": "cypress info",
-    "cy:version": "cypress version",
-    "cy:cache:list": "cypress cache list",
-    "cy:run": "cypress run",
-    "cy:run:record": "cypress run --record",
-    "cy:open": "cypress open"
+    "cy:run-junit-reporter:component": "cypress run -q --component --reporter junit",
+    "cy:run-junit-reporter:e2e": "cypress run --reporter junit --spec \"cypress/e2e/todo.cy.ts\""
   },
   "dependencies": {
     "@cypress/code-coverage": "^3.10.8",
