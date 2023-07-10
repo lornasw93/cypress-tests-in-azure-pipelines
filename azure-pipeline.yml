@@ -46,15 +46,10 @@ steps:
 - script: npm run cy:info
   displayName: 'Cypress info'
 
-
-
-
 - script: |
-    npm run start:e2e & npm run cy:run-junit-reporter:e2e
+    npm run start & 
+    npm run cy:run-junit-reporter:e2e
   displayName: 'Run Cypress tests'
-
-
-
 
 - task: PublishTestResults@2
   inputs:
