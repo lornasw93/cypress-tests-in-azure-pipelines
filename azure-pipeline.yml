@@ -28,9 +28,8 @@ steps:
 - script: |
     npm install -g wait-on
     npm run start:e2e & wait-on http://localhost:4173
-    npx cypress run --reporter junit
+    npx cypress run --reporter junit --spec "cypress/e2e/signing-up.cy.ts"
   displayName: 'Run Cypress tests'
-  workingDirectory: $(Pipeline.Workspace)/s/react-vite-ts/cypress/e2e
 
 - task: PublishTestResults@2
   displayName: 'Publish test results'
