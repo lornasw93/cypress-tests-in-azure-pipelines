@@ -35,6 +35,6 @@ steps:
   displayName: 'Publish test results'
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: 'report-*.xml'
+    testResultsFiles: '**/reports/report-*.xml'
     failTaskOnFailedTests: true
     testRunTitle: 'Cypress tests'
