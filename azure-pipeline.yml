@@ -28,13 +28,15 @@ steps:
 - script: |
     npm install -g wait-on
     npm run start:e2e & wait-on http://localhost:4173
-    npx cypress run --reporter junit --spec "**/cypress/e2e/todo.cy.ts"
+    npx cypress run --reporter junit
   displayName: 'Run Cypress tests'
+  workingDirectory: $(Pipeline.Workspace)/s/react-vite-ts/cypress/e2e
 
 - task: PublishTestResults@2
   displayName: 'Publish test results'
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**/cypress/reports/report-*.xml'
+    testResultsFiles: 'report-*.xml'
+    searchFolder: '$(Build.ArtifactStagingDirectory)\_temp\'
     failTaskOnFailedTests: true
     testRunTitle: 'Cypress tests'
