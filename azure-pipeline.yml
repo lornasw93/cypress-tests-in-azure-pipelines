@@ -48,7 +48,7 @@ steps:
 
 - script: |
     npm run start & 
-    npm run cy:run-junit-reporter:e2e
+    npx cypress run --reporter junit --spec "cypress/e2e/todo.cy.ts"
   displayName: 'Run Cypress tests'
 
 - task: PublishTestResults@2
