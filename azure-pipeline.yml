@@ -4,17 +4,13 @@ trigger:
       - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 
 steps:
 - checkout: self
   fetchDepth: 0
   fetchTags: "false"
- 
-- task: NodeTool@0
-  inputs:
-    versionSpec: '18.x'
-  displayName: 'Install Node.js'
+
 
 - script: npm ci
   displayName: 'Install NPM dependencies'
@@ -29,9 +25,10 @@ steps:
   workingDirectory: '$(System.DefaultWorkingDirectory)'
  
 - task: PublishTestResults@2
-  displayName: 'Publish test results'
+  displayName: 'Publish Cypress test results'
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
     failTaskOnFailedTests: false
+    testRunTitle: 'Basic Cypress tests'
     searchFolder: '$(System.DefaultWorkingDirectory)'
