@@ -41,7 +41,7 @@ steps:
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: '$(CypressFolderPath)/results/result-*.xml'
-    mergeTestResults: true
+    # mergeTestResults: true
     testRunTitle: 'Basic Cypress tests'
     searchFolder: '$(System.DefaultWorkingDirectory)'
 
