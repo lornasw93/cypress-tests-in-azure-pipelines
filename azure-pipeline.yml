@@ -61,12 +61,12 @@ jobs:
     condition: succeededOrFailed()
     continueOnError: True
     inputs:
-      PathtoPublish: '$(System.DefaultWorkingDirectory)/cypress/screenshots'
+      PathtoPublish: '$(System.DefaultWorkingDirectory)/screenshots'
       ArtifactName: screenshots
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: videos'
     condition: succeededOrFailed()
     continueOnError: True
     inputs:
-      PathtoPublish: '$(System.DefaultWorkingDirectory)/cypress/videos'
+      PathtoPublish: '$(System.DefaultWorkingDirectory)/videos'
       ArtifactName: video
