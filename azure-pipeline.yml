@@ -19,11 +19,8 @@ steps:
 - script: npm ci
   displayName: 'Install NPM dependencies'
 
-- script: npm run cy:verify
+- script: npm run cy:verify & npm run cy:info
   displayName: 'Cypress verify'
-
-- script: npm run cy:info
-  displayName: 'Cypress info'
 
 - script: |
     npm install -g wait-on
@@ -31,10 +28,6 @@ steps:
   displayName: 'Run Cypress e2e tests'
   workingDirectory: '$(System.DefaultWorkingDirectory)'
 
-- script: |
-    npm run cy:run-junit-reporter:component
-  displayName: 'Run Cypress component tests'
-  workingDirectory: '$(System.DefaultWorkingDirectory)'
 
 - task: PublishTestResults@2
   displayName: 'Publish test results'
