@@ -13,6 +13,7 @@ jobs:
     inputs:
       versionSpec: '18.x'
     displayName: 'Install Node.js'
+    workingDirectory: '/home/vsts/work/1/s'
   - script: npm ci
     displayName: 'Install NPM dependencies'
     workingDirectory: '/home/vsts/work/1/s'
