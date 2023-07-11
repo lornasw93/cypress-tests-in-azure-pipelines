@@ -19,6 +19,12 @@ steps:
 - script: npm ci
   displayName: 'Install NPM dependencies'
 
+- task: DeleteFiles@1
+    displayName: Delete old Cypress test results
+    inputs:
+      SourceFolder: $(System.DefaultWorkingDirectory)/cypress/results/
+      Contents: '*.*'
+
 - script: npm run cy:verify
   displayName: 'Cypress verify'
 
@@ -39,3 +45,6 @@ steps:
     failTaskOnFailedTests: true
     testRunTitle: 'Cypress tests'
     searchFolder: '$(System.DefaultWorkingDirectory)'
+
+//used this as a base https://github.com/cypress-io/cypress-example-kitchensink/blob/master/azure-ci.yml
+//and this https://github.com/cypress-io/cypress-example-kitchensink/blob/master/package.json#L40
