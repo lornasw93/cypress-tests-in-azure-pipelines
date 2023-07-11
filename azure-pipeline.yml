@@ -41,10 +41,10 @@ jobs:
     condition: succeededOrFailed()
     inputs:
       testResultsFormat: 'JUnit'
-      testResultsFiles: '$(System.DefaultWorkingDirectory)/cypress/results/result-*.xml'
-      searchFolder: '$(System.DefaultWorkingDirectory)'
+      testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
       mergeTestResults: true
       testRunTitle: Cypress Test Results
+      searchFolder: '$(System.DefaultWorkingDirectory)'
 
 
 - job: Job_3
@@ -58,12 +58,12 @@ jobs:
     condition: succeededOrFailed()
     continueOnError: True
     inputs:
-      PathtoPublish: $(System.DefaultWorkingDirectory)/cypress/screenshots
+      PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots'
       ArtifactName: screenshots
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: videos'
     condition: succeededOrFailed()
     continueOnError: True
     inputs:
-      PathtoPublish: $(System.DefaultWorkingDirectory)/cypress/videos
+      PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
       ArtifactName: video
