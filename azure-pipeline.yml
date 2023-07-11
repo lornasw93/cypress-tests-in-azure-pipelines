@@ -18,9 +18,11 @@ jobs:
     inputs:
       versionSpec: '18.x'
     displayName: 'Install Node.js'
-  - task: Npm@1
+  - task: CmdLine@2
     displayName: Install NPM dependencies
-    script: npm ci
+    inputs:
+      script: >
+        npm ci
   - task: CmdLine@2
     displayName: Check Cypress Installed
     inputs:
