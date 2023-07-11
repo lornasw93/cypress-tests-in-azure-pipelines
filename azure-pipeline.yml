@@ -28,7 +28,7 @@ jobs:
 - job: Job_2
   dependsOn: Job_1
   condition: succeeded()
-  displayName: Run-Cypress-Tests
+  displayName: Run Cypress tests
   steps:
   - checkout: none
   - task: CmdLine@2
@@ -61,12 +61,12 @@ jobs:
     condition: succeededOrFailed()
     continueOnError: True
     inputs:
-      PathtoPublish: '$(CypressFolderPath)/screenshots'
+      PathtoPublish: '$(System.DefaultWorkingDirectory)/cypress/screenshots'
       ArtifactName: screenshots
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: videos'
     condition: succeededOrFailed()
     continueOnError: True
     inputs:
-      PathtoPublish: '$(CypressFolderPath)/videos'
+      PathtoPublish: '$(System.DefaultWorkingDirectory)/cypress/videos'
       ArtifactName: video
