@@ -19,22 +19,19 @@ steps:
 - script: npm ci
   displayName: 'Install NPM dependencies'
 
-- script: npm run cy:verify & npm run cy:info
-  displayName: 'Cypress verify'
+- script: npm run cy:verify
+  displayName: 'Verify Cypress is installed'
 
 - script: |
     npm install -g wait-on
     npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
   displayName: 'Run Cypress e2e tests'
   workingDirectory: '$(System.DefaultWorkingDirectory)'
-
-
+ 
 - task: PublishTestResults@2
   displayName: 'Publish test results'
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
     failTaskOnFailedTests: false
-    testRunTitle: 'Cypress tests'
-    mergeTestResults: true
     searchFolder: '$(System.DefaultWorkingDirectory)'
