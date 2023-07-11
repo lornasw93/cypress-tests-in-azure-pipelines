@@ -20,10 +20,6 @@ jobs:
     inputs:
       script: >
         npx cypress verify
-  - task: Npm@1
-    displayName: npm install -g wait-on
-    inputs:
-      verbose: false
 
 
 - job: Job_2
@@ -37,7 +33,8 @@ jobs:
     continueOnError: True
     inputs:
       workingDirectory: $(System.DefaultWorkingDirectory)
-      script: >
+      script: |
+        npm install -g wait-on
         npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
   - task: PublishTestResults@2
     displayName: Publish JUnit Test Results
