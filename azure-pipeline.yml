@@ -10,14 +10,11 @@ jobs:
     inputs:
       versionSpec: '18.x'
     displayName: 'Install Node.js'
-  - task: CmdLine@2
-    displayName: Install NPM dependencies
-    inputs:
-      script: npm ci
-  - task: CmdLine@2
-    displayName: Check Cypress Installed
-    inputs:
-      script: npx cypress verify
+  - script: npm ci
+    displayName: 'Install NPM dependencies'
+  - script: npm run cy:verify
+    displayName: 'Verify Cypress is installed'
+    workingDirectory: '$(Build.SourcesDirectory)/react-vite-ts'
 
 - job: Job_2
   dependsOn: Job_1
