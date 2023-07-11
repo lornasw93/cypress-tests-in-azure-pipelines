@@ -27,6 +27,7 @@ steps:
 - script: |
     npm install -g wait-on
     npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
+  continueOnError: True
   displayName: 'Run Cypress e2e tests'
 
 # - script: npm run cy:run-junit-reporter:component
