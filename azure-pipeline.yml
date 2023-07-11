@@ -20,6 +20,13 @@ jobs:
       workingDirectory: '$(System.DefaultWorkingDirectory)'
 
 
+
+
+
+
+
+
+
 - job: Job_2
   dependsOn: Job_1
   condition: succeeded()
@@ -34,6 +41,9 @@ jobs:
         npm install -g wait-on
         npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
       workingDirectory: '$(System.DefaultWorkingDirectory)'
+
+
+
   - task: PublishTestResults@2
     displayName: Publish JUnit Test Results
     condition: succeededOrFailed()
@@ -42,6 +52,16 @@ jobs:
       testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
       testRunTitle: Cypress test results
       searchFolder: '$(System.DefaultWorkingDirectory)'
+
+
+
+
+
+
+
+
+
+
 
 
 - job: Job_3
@@ -55,14 +75,14 @@ jobs:
     condition: succeededOrFailed()
     continueOnError: True
     inputs:
-      PathtoPublish: '$(System.DefaultWorkingDirectory)/screenshots'
+      PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots'
       ArtifactName: screenshots
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: videos'
     condition: succeededOrFailed()
     continueOnError: True
     inputs:
-      PathtoPublish: '$(System.DefaultWorkingDirectory)/videos'
+      PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
       ArtifactName: video
 
 # trigger:
