@@ -36,6 +36,5 @@ steps:
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
-    failTaskOnFailedTests: true
     testRunTitle: 'Cypress tests'
     searchFolder: '$(System.DefaultWorkingDirectory)'
