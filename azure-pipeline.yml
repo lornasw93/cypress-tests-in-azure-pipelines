@@ -33,13 +33,16 @@ jobs:
     continueOnError: True
     inputs:
       workingDirectory: $(System.DefaultWorkingDirectory)
-      script: npm run record
+      script: >
+        npm install -g wait-on
+        npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
   - task: PublishTestResults@2
     displayName: Publish JUnit Test Results
     condition: succeededOrFailed()
     inputs:
-      testResultsFiles: '*.xml'
-      searchFolder: $(System.DefaultWorkingDirectory)/cypress/results
+ testResultsFormat: 'JUnit'
+      testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
       mergeTestResults: true
       testRunTitle: Cypress Test Results
 
