@@ -14,6 +14,10 @@ jobs:
     inputs:
       SourceFolder: $(System.DefaultWorkingDirectory)/cypress/results/
       Contents: '*.*'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.x'
+    displayName: 'Install Node.js'
   - task: Npm@1
     displayName: npm ci
     inputs:
@@ -32,20 +36,20 @@ jobs:
   steps:
   - checkout: none
   - task: CmdLine@2
-    displayName: Run-Tests
+    displayName: Run Cypress tests
     continueOnError: True
     inputs:
       script: |
         npm install -g wait-on
         npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
+      workingDirectory: '$(System.DefaultWorkingDirectory)'
   - task: PublishTestResults@2
     displayName: Publish JUnit Test Results
     condition: succeededOrFailed()
     inputs:
       testResultsFormat: 'JUnit'
       testResultsFiles: '$(CypressFolderPath)/results/result-*.xml'
-      mergeTestResults: true
-      testRunTitle: Cypress Test Results
+      testRunTitle: Cypress test results
       searchFolder: '$(System.DefaultWorkingDirectory)'
 
 
