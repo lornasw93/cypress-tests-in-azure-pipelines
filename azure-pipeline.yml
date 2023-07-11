@@ -9,15 +9,6 @@ jobs:
   displayName: Pre-requisites
   steps:
   - checkout: self
-  - task: DeleteFiles@1
-    displayName: Delete old results
-    inputs:
-      SourceFolder: $(System.DefaultWorkingDirectory)/cypress/results/
-      Contents: '*.*'
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '18.x'
-    displayName: 'Install Node.js'
   - task: CmdLine@2
     displayName: Install NPM dependencies
     inputs:
@@ -43,7 +34,6 @@ jobs:
       script: |
         npm install -g wait-on
         npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
-    workingDirectory: '$(System.DefaultWorkingDirectory)'
   - task: PublishTestResults@2
     displayName: Publish JUnit Test Results
     condition: succeededOrFailed()
