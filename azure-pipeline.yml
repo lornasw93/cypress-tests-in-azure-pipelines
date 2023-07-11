@@ -13,13 +13,18 @@ jobs:
     inputs:
       versionSpec: '18.x'
     displayName: 'Install Node.js'
-    workingDirectory: '/home/vsts/work/1/s'
-  - script: npm ci
+  - task: CmdLine@2
     displayName: 'Install NPM dependencies'
-    workingDirectory: '/home/vsts/work/1/s'
-  - script: npm run cy:verify
+    inputs:
+      script: npm ci
+      workingDirectory: '$(System.DefaultWorkingDirectory)'
+  - task: CmdLine@2
     displayName: 'Verify Cypress is installed'
-    workingDirectory: '/home/vsts/work/1/s'
+    inputs:
+      script: npm run cy:verify
+      workingDirectory: '$(System.DefaultWorkingDirectory)'
+
+
 
 - job: Job_2
   dependsOn: Job_1
