@@ -19,9 +19,8 @@ jobs:
       versionSpec: '18.x'
     displayName: 'Install Node.js'
   - task: Npm@1
-    displayName: npm ci
-    inputs:
-      verbose: false
+    displayName: Install NPM dependencies
+    script: npm ci
   - task: CmdLine@2
     displayName: Check Cypress Installed
     inputs:
@@ -48,7 +47,7 @@ jobs:
     condition: succeededOrFailed()
     inputs:
       testResultsFormat: 'JUnit'
-      testResultsFiles: '$(CypressFolderPath)/results/result-*.xml'
+      testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
       testRunTitle: Cypress test results
       searchFolder: '$(System.DefaultWorkingDirectory)'
 
