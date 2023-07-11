@@ -22,7 +22,6 @@ import { Provider } from "react-redux";
 
 import "@cypress/code-coverage/support";
 import "./commands";
-import "../../src/index.scss";
 
 declare global {
   namespace Cypress {

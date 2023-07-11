@@ -22,7 +22,10 @@
     "cypress-axe": "^1.4.0",
     "msw": "^1.2.1",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "vite-plugin-istanbul": "^4.1.0",
+    "vite-plugin-svgr": "^3.2.0",
+    "vite-tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
     "@reduxjs/toolkit": "^1.9.5",
@@ -37,7 +40,7 @@
     "react-router-dom": "^6.14.1",
     "tailwindcss": "^3.0.24",
     "typescript": "^4.6.3",
-    "vite": "^2.9.2"
+    "vite": "^2.9.16"
   },
   "msw": {
     "workerDirectory": "."
