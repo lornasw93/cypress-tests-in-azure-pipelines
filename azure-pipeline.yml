@@ -33,8 +33,6 @@ steps:
     npm run cy:run-junit-reporter:component
   displayName: 'Run Cypress tests'
   workingDirectory: '$(System.DefaultWorkingDirectory)'
-  inputs:
-    failTaskOnFailedTests: false
 
 - task: PublishTestResults@2
   displayName: 'Publish test results'
