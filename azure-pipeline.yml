@@ -43,7 +43,7 @@ jobs:
     displayName: Publish JUnit Test Results
     condition: succeededOrFailed()
     inputs:
- testResultsFormat: 'JUnit'
+      testResultsFormat: 'JUnit'
       testResultsFiles: '$(System.DefaultWorkingDirectory)/cypress/results/result-*.xml'
       searchFolder: '$(System.DefaultWorkingDirectory)'
       mergeTestResults: true
