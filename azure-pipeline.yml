@@ -1,9 +1,6 @@
 trigger:
 - master
 
-variables:
-  CypressFolderPath: '/home/vsts/work/1/s/cypress'
-
 jobs:
 - job: Job_1
   displayName: Pre-requisites
@@ -14,11 +11,13 @@ jobs:
     inputs:
       script: >
         npm ci
+      workingDirectory: '$(System.DefaultWorkingDirectory)'
   - task: CmdLine@2
     displayName: Check Cypress Installed
     inputs:
       script: >
         npx cypress verify
+      workingDirectory: '$(System.DefaultWorkingDirectory)'
 
 
 - job: Job_2
