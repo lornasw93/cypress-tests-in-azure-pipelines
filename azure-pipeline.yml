@@ -55,4 +55,4 @@ steps:
   continueOnError: True
   inputs:
     PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
-    ArtifactName: screenshots
+    ArtifactName: videos
