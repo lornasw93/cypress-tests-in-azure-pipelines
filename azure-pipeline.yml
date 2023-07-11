@@ -6,23 +6,6 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- checkout: self
-  fetchDepth: 0
-  fetchTags: "false"
- 
-
-
-
-
-
-
-
-
-
-
-
-
 jobs:
 - job: Job_1
   displayName: Pre-reqs
@@ -45,33 +28,32 @@ jobs:
       script: >
         npx cypress verify
 
-  - job: Job_2
-    dependsOn: Job_1
-    condition: succeeded()
-    displayName: Run-Cypress-Tests
-    pool:
-      name: Default
-    steps:
-    - checkout: none
-    - task: CmdLine@2
-      displayName: Run-Tests
-      continueOnError: True
-      inputs:
-        workingDirectory: $(System.DefaultWorkingDirectory)
-        script: |
-          npm install -g wait-on
-          npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
-    - task: PublishTestResults@2
-      displayName: Publish JUnit Test Results
-      condition: succeededOrFailed()
-      inputs:
-        testResultsFiles: '*.xml'
-        searchFolder: $(System.DefaultWorkingDirectory)/cypress/results
-        mergeTestResults: true
-        testRunTitle: Cypress Test Results
+- job: Job_2
+  dependsOn: Job_1
+  condition: succeeded()
+  displayName: Run-Cypress-Tests
+  pool:
+    name: Default
+  steps:
+  - checkout: none
+  - task: CmdLine@2
+    displayName: Run-Tests
+    continueOnError: True
+    inputs:
+      workingDirectory: $(System.DefaultWorkingDirectory)
+      script: |
+        npm install -g wait-on
+        npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
+  - task: PublishTestResults@2
+    displayName: Publish JUnit Test Results
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFiles: '*.xml'
+      searchFolder: $(System.DefaultWorkingDirectory)/cypress/results
+      mergeTestResults: true
+      testRunTitle: Cypress Test Results
 
-
-  - job: Job_3
+- job: Job_3
     dependsOn: Job_2
     condition: eq(dependencies.Job_2.result,'SucceededWithIssues')
     displayName: Publish-Screens-on-Fail
