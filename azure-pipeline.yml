@@ -1,9 +1,12 @@
 trigger:
 - master
 
+variables:
+  CypressFolderPath: '/home/vsts/work/1/s/cypress'
+
 jobs:
 - job: Job_1
-  displayName: Pre-reqs
+  displayName: Pre-requisites
   steps:
   - checkout: self
   - task: DeleteFiles@1
@@ -32,16 +35,16 @@ jobs:
     displayName: Run-Tests
     continueOnError: True
     inputs:
-      workingDirectory: $(System.DefaultWorkingDirectory)
       script: |
         npm install -g wait-on
         npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
+      workingDirectory: $(System.DefaultWorkingDirectory)
   - task: PublishTestResults@2
     displayName: Publish JUnit Test Results
     condition: succeededOrFailed()
     inputs:
       testResultsFormat: 'JUnit'
-      testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
+      testResultsFiles: '$(CypressFolderPath)/results/result-*.xml'
       mergeTestResults: true
       testRunTitle: Cypress Test Results
       searchFolder: '$(System.DefaultWorkingDirectory)'
@@ -58,12 +61,12 @@ jobs:
     condition: succeededOrFailed()
     continueOnError: True
     inputs:
-      PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots'
+      PathtoPublish: '$(CypressFolderPath)/screenshots'
       ArtifactName: screenshots
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: videos'
     condition: succeededOrFailed()
     continueOnError: True
     inputs:
-      PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
+      PathtoPublish: '$(CypressFolderPath)/videos'
       ArtifactName: video
