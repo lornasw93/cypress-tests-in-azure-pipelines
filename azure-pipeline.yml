@@ -45,6 +45,3 @@ steps:
     failTaskOnFailedTests: true
     testRunTitle: 'Cypress tests'
     searchFolder: '$(System.DefaultWorkingDirectory)'
-
-//used this as a base https://github.com/cypress-io/cypress-example-kitchensink/blob/master/azure-ci.yml
-//and this https://github.com/cypress-io/cypress-example-kitchensink/blob/master/package.json#L40
