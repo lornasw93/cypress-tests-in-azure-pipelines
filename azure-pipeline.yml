@@ -35,7 +35,7 @@ steps:
   displayName: 'Publish test results'
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**/report-*.xml'
+    testResultsFiles: '/home/vsts/work/1/s/cypress/reports/report-*.xml'
     failTaskOnFailedTests: true
     testRunTitle: 'Cypress tests'
     searchFolder: '$(System.DefaultWorkingDirectory)'
