@@ -4,8 +4,6 @@ trigger:
 jobs:
 - job: Job_1
   displayName: Pre-reqs
-  pool:
-    name: Default
   steps:
   - checkout: self
   - task: DeleteFiles@1
@@ -28,8 +26,6 @@ jobs:
   dependsOn: Job_1
   condition: succeeded()
   displayName: Run-Cypress-Tests
-  pool:
-    name: Default
   steps:
   - checkout: none
   - task: CmdLine@2
