@@ -1,4 +1,5 @@
 import { defineConfig } from "cypress";
+import codeCoverageTask from "@cypress/code-coverage/task";
 
 export default defineConfig({
   env: {
@@ -23,6 +24,11 @@ export default defineConfig({
       bundler: "vite",
     },
     supportFile: "cypress/support/component.tsx",
+    setupNodeEvents(on, config) {
+      codeCoverageTask(on, config);
+
+      return config;
+    },
   },
 
   reporter: "junit",
