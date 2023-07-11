@@ -11,37 +11,85 @@ steps:
   fetchDepth: 0
   fetchTags: "false"
  
-- task: NodeTool@0
-  inputs:
-    versionSpec: '18.x'
-  displayName: 'Install Node.js'
 
-- script: npm ci
-  displayName: 'Install NPM dependencies'
 
-- task: DeleteFiles@1
-    displayName: Delete old Cypress test results
+
+
+
+
+
+
+
+
+
+
+jobs:
+- job: Job_1
+  displayName: Pre-reqs
+  pool:
+    name: Default
+  steps:
+  - checkout: self
+  - task: DeleteFiles@1
+    displayName: Delete old results
     inputs:
       SourceFolder: $(System.DefaultWorkingDirectory)/cypress/results/
       Contents: '*.*'
+  - task: Npm@1
+    displayName: npm install
+    inputs:
+      verbose: false
+  - task: CmdLine@2
+    displayName: Check Cypress Installed
+    inputs:
+      script: >
+        npx cypress verify
 
-- script: npm run cy:verify
-  displayName: 'Cypress verify'
+  - job: Job_2
+    dependsOn: Job_1
+    condition: succeeded()
+    displayName: Run-Cypress-Tests
+    pool:
+      name: Default
+    steps:
+    - checkout: none
+    - task: CmdLine@2
+      displayName: Run-Tests
+      continueOnError: True
+      inputs:
+        workingDirectory: $(System.DefaultWorkingDirectory)
+        script: |
+          npm install -g wait-on
+          npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
+    - task: PublishTestResults@2
+      displayName: Publish JUnit Test Results
+      condition: succeededOrFailed()
+      inputs:
+        testResultsFiles: '*.xml'
+        searchFolder: $(System.DefaultWorkingDirectory)/cypress/results
+        mergeTestResults: true
+        testRunTitle: Cypress Test Results
 
-- script: npm run cy:info
-  displayName: 'Cypress info'
 
-- script: |
-    npm install -g wait-on
-    npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
-  displayName: 'Run Cypress tests'
-  workingDirectory: '$(System.DefaultWorkingDirectory)'
-
-- task: PublishTestResults@2
-  displayName: 'Publish test results'
-  inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
-    failTaskOnFailedTests: true
-    testRunTitle: 'Cypress tests'
-    searchFolder: '$(System.DefaultWorkingDirectory)'
+  - job: Job_3
+    dependsOn: Job_2
+    condition: eq(dependencies.Job_2.result,'SucceededWithIssues')
+    displayName: Publish-Screens-on-Fail
+    pool:
+      name: Default
+    steps:
+    - checkout: none
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: screenshots'
+      condition: succeededOrFailed()
+      continueOnError: True
+      inputs:
+        PathtoPublish: $(System.DefaultWorkingDirectory)/cypress/screenshots
+        ArtifactName: screenshots
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: videos'
+      condition: succeededOrFailed()
+      continueOnError: True
+      inputs:
+        PathtoPublish: $(System.DefaultWorkingDirectory)/cypress/videos
+        ArtifactName: videos
