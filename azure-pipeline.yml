@@ -39,5 +39,14 @@ steps:
     testResultsFormat: 'JUnit'
     testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
     #failTaskOnFailedTests: false
-    testRunTitle: 'Basic Cypress tests!!'
+    testRunTitle: 'Basic Cypress tests'
     searchFolder: '$(System.DefaultWorkingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: screenshots'
+  condition: succeededOrFailed()
+  continueOnError: True
+  inputs:
+    PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots'
+    ArtifactName: screenshots
+
