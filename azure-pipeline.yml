@@ -1,11 +1,6 @@
 trigger:
-  paths:
-    include:
-      - master
-
-pool:
-  vmImage: 'ubuntu-latest'
-
+  - master
+  
 jobs:
 - job: Job_1
   displayName: Pre-reqs
