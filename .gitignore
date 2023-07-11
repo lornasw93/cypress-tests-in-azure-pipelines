@@ -5,8 +5,6 @@ dist/
 
 cypress/videos
 cypress/screenshots
-cypress/results
-cypress/reports
 
 .nyc_output/
 .reports/
