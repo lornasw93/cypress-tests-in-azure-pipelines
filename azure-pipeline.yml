@@ -28,25 +28,31 @@ steps:
     npm install -g wait-on
     npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
   continueOnError: True
-  displayName: 'Run Cypress e2e tests'
+  displayName: 'Run e2e tests'
 
 # - script: npm run cy:run-junit-reporter:component
 #   displayName: 'Run Cypress component tests'
 
 - task: PublishTestResults@2
-  displayName: 'Publish Cypress test results'
+  displayName: 'Publish test results'
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
-    #failTaskOnFailedTests: false
     testRunTitle: 'Basic Cypress tests'
     searchFolder: '$(System.DefaultWorkingDirectory)'
 
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: screenshots'
+  displayName: 'Publish screenshots'
   condition: succeededOrFailed()
   continueOnError: True
   inputs:
     PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots'
     ArtifactName: screenshots
 
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish videos'
+  condition: succeededOrFailed()
+  continueOnError: True
+  inputs:
+    PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
+    ArtifactName: screenshots
