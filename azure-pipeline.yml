@@ -27,12 +27,12 @@ steps:
 
 - script: |
     npm install -g wait-on
-    npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e & npm run cy:run-junit-reporter:component
+    npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
   displayName: 'Run Cypress e2e tests'
   workingDirectory: '$(System.DefaultWorkingDirectory)'
 
 - script: |
-    npm run start:component & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:component
+    npm run cy:run-junit-reporter:component
   displayName: 'Run Cypress component tests'
   workingDirectory: '$(System.DefaultWorkingDirectory)'
 
