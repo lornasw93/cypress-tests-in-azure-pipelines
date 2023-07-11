@@ -1,6 +1,9 @@
 trigger:
 - master
 
+
+# /home/vsts/work/1/s == $(Build.SourcesDirectory)
+
 jobs:
 - job: Job_1
   displayName: Pre-requisites
@@ -12,9 +15,10 @@ jobs:
     displayName: 'Install Node.js'
   - script: npm ci
     displayName: 'Install NPM dependencies'
+    workingDirectory: '$(Build.SourcesDirectory)'
   - script: npm run cy:verify
     displayName: 'Verify Cypress is installed'
-    workingDirectory: '$(Build.SourcesDirectory)/react-vite-ts'
+    workingDirectory: '$(Build.SourcesDirectory)'
 
 - job: Job_2
   dependsOn: Job_1
