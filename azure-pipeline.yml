@@ -28,7 +28,12 @@ steps:
 - script: |
     npm install -g wait-on
     npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e & npm run cy:run-junit-reporter:component
-  displayName: 'Run Cypress tests'
+  displayName: 'Run Cypress e2e tests'
+  workingDirectory: '$(System.DefaultWorkingDirectory)'
+
+- script: |
+    npm run start:component & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:component
+  displayName: 'Run Cypress component tests'
   workingDirectory: '$(System.DefaultWorkingDirectory)'
 
 - task: PublishTestResults@2
@@ -38,4 +43,5 @@ steps:
     testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
     failTaskOnFailedTests: false
     testRunTitle: 'Cypress tests'
+    mergeTestResults: true
     searchFolder: '$(System.DefaultWorkingDirectory)'
