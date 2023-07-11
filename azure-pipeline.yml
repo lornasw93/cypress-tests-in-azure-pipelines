@@ -6,26 +6,18 @@ jobs:
   displayName: Pre-requisites
   steps:
   - checkout: self
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.x'
+    displayName: 'Install Node.js'
   - task: CmdLine@2
     displayName: Install NPM dependencies
     inputs:
-      script: >
-        npm ci
-      workingDirectory: '$(System.DefaultWorkingDirectory)'
+      script: npm ci
   - task: CmdLine@2
     displayName: Check Cypress Installed
     inputs:
-      script: >
-        npx cypress verify
-      workingDirectory: '$(System.DefaultWorkingDirectory)'
-
-
-
-
-
-
-
-
+      script: npx cypress verify
 
 - job: Job_2
   dependsOn: Job_1
@@ -52,17 +44,6 @@ jobs:
       testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
       testRunTitle: Cypress test results
       searchFolder: '$(System.DefaultWorkingDirectory)'
-
-
-
-
-
-
-
-
-
-
-
 
 - job: Job_3
   dependsOn: Job_2
