@@ -5,6 +5,9 @@ trigger:
     include:
       - master
 
+variables:
+  CypressFolderPath: '/home/vsts/work/1/s/cypress'
+
 pool:
   vmImage: 'ubuntu-latest'
 
@@ -37,7 +40,8 @@ steps:
   displayName: 'Publish test results'
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
+    testResultsFiles: '$(CypressFolderPath)/results/result-*.xml'
+    mergeTestResults: true
     testRunTitle: 'Basic Cypress tests'
     searchFolder: '$(System.DefaultWorkingDirectory)'
 
@@ -46,7 +50,7 @@ steps:
   condition: succeededOrFailed()
   continueOnError: True
   inputs:
-    PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots'
+    PathtoPublish: '$(CypressFolderPath)/screenshots'
     ArtifactName: screenshots
 
 - task: PublishBuildArtifacts@1
@@ -54,5 +58,5 @@ steps:
   condition: succeededOrFailed()
   continueOnError: True
   inputs:
-    PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
+    PathtoPublish: '$(CypressFolderPath)/videos'
     ArtifactName: videos
