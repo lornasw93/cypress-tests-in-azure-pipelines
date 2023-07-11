@@ -48,8 +48,6 @@ jobs:
   dependsOn: Job_2
   condition: eq(dependencies.Job_2.result,'SucceededWithIssues')
   displayName: Publish-Screens-on-Fail
-  pool:
-    name: windows-latest
   steps:
   - checkout: none
   - task: PublishBuildArtifacts@1
