@@ -1,100 +1,44 @@
-trigger:
-- master
-
-
 # /home/vsts/work/1/s == $(Build.SourcesDirectory)
 
-jobs:
-- job: Job_1
-  displayName: Pre-requisites
-  steps:
-  - checkout: self
-- job: Job_2
-  dependsOn: Job_1
-  condition: succeeded()
-  displayName: Run Cypress tests
-  steps:
-  - checkout: none
-  - task: CmdLine@2
-    displayName: Run Cypress tests
-    continueOnError: True
-    inputs:
-      script: |
-        npm install -g wait-on
-        npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
-      workingDirectory: '$(System.DefaultWorkingDirectory)'
+trigger:
+  paths:
+    include:
+      - master
 
+pool:
+  vmImage: 'ubuntu-latest'
 
-
-  - task: PublishTestResults@2
-    displayName: Publish JUnit Test Results
-    condition: succeededOrFailed()
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
-      testRunTitle: Cypress test results
-      searchFolder: '$(System.DefaultWorkingDirectory)'
-
-- job: Job_3
-  dependsOn: Job_2
-  condition: eq(dependencies.Job_2.result,'SucceededWithIssues')
-  displayName: Publish-Screens-on-Fail
-  steps:
-  - checkout: none
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: screenshots'
-    condition: succeededOrFailed()
-    continueOnError: True
-    inputs:
-      PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots'
-      ArtifactName: screenshots
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: videos'
-    condition: succeededOrFailed()
-    continueOnError: True
-    inputs:
-      PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
-      ArtifactName: video
-
-# trigger:
-#   paths:
-#     include:
-#       - master
-
-# pool:
-#   vmImage: 'ubuntu-latest'
-
-# steps:
-# - checkout: self
-#   fetchDepth: 0
-#   fetchTags: "false"
+steps:
+- checkout: self
+  fetchDepth: 0
+  fetchTags: "false"
  
-# - task: NodeTool@0
-#   inputs:
-#     versionSpec: '18.x'
-#   displayName: 'Install Node.js'
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'
+  displayName: 'Install Node.js'
 
-# - script: npm ci
-#   displayName: 'Install NPM dependencies'
+- script: npm ci
+  displayName: 'Install NPM dependencies'
 
-# - script: npm run cy:verify
-#   displayName: 'Verify Cypress is installed'
+- script: npm run cy:verify
+  displayName: 'Verify Cypress is installed'
 
-# - script: |
-#     npm install -g wait-on
-#     npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
-#   displayName: 'Run Cypress e2e tests'
-#   workingDirectory: '$(System.DefaultWorkingDirectory)'
+- script: |
+    npm install -g wait-on
+    npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
+  displayName: 'Run Cypress e2e tests'
+  workingDirectory: '$(System.DefaultWorkingDirectory)'
 
-# - script: npm run cy:run-junit-reporter:component
-#   displayName: 'Run Cypress component tests'
-#   workingDirectory: '$(System.DefaultWorkingDirectory)'
+- script: npm run cy:run-junit-reporter:component
+  displayName: 'Run Cypress component tests'
+  workingDirectory: '$(System.DefaultWorkingDirectory)'
 
-# - task: PublishTestResults@2
-#   displayName: 'Publish Cypress test results'
-#   inputs:
-#     testResultsFormat: 'JUnit'
-#     testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
-#     failTaskOnFailedTests: false
-#     testRunTitle: 'Basic Cypress tests'
-#     searchFolder: '$(System.DefaultWorkingDirectory)'
+- task: PublishTestResults@2
+  displayName: 'Publish Cypress test results'
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
+    failTaskOnFailedTests: false
+    testRunTitle: 'Basic Cypress tests'
+    searchFolder: '$(System.DefaultWorkingDirectory)'
