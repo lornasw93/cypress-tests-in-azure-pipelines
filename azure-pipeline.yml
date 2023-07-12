@@ -11,10 +11,7 @@ variables:
 pool:
   vmImage: 'ubuntu-latest'
 
-jobs:
-- job: Job_1
-  displayName: Pre-requisites & run tests
-  steps:
+steps:
   - task: NodeTool@0
     inputs:
       versionSpec: '18.x'
@@ -35,11 +32,6 @@ jobs:
   # - script: npm run cy:run-junit-reporter:component
   #   displayName: 'Run Cypress component tests'
 
-- job: Job_2
-  dependsOn: Job_1
-  condition: eq(dependencies.Job_1.result,'SucceededWithIssues')
-  displayName: Publish failed test results
-  steps:
   - task: PublishTestResults@2
     displayName: 'Publish test results'
     inputs:
@@ -51,7 +43,7 @@ jobs:
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish screenshots'
-    condition: succeededOrFailed()
+    condition: failed()
     continueOnError: True
     inputs:
       PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots'
@@ -64,16 +56,3 @@ jobs:
     inputs:
       PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
       ArtifactName: videos
-
-- job: Job_3
-  dependsOn: Job_1
-  condition: eq(dependencies.Job_1.result,'Succeeded')
-  displayName: Publish success test results
-  steps:
-  - task: PublishTestResults@2
-    displayName: 'Publish test results'
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
-      # mergeTestResults: true
-      testRunTitle: 'Basic Cypress tests'
