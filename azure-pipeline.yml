@@ -38,7 +38,7 @@ jobs:
 - job: Job_2
   dependsOn: Job_1
   condition: eq(dependencies.Job_1.result,'SucceededWithIssues')
-  displayName: Publish test results
+  displayName: Publish failed test results
   steps:
   - task: PublishTestResults@2
     displayName: 'Publish test results'
@@ -68,7 +68,7 @@ jobs:
 - job: Job_3
   dependsOn: Job_1
   condition: eq(dependencies.Job_1.result,'Succeeded')
-  displayName: Publish test results
+  displayName: Publish success test results
   steps:
   - task: PublishTestResults@2
     displayName: 'Publish test results'
