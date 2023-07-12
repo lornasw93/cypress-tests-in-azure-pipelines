@@ -42,24 +42,46 @@ jobs:
 
 - job: Job_3
   dependsOn: Job_2
-  condition: eq(dependencies.Job_2.result,'SucceededWithIssues')
-  displayName: Publish results
+  condition: eq(dependencies.Job_2.result,'Succeeded')
+  displayName: Publish success results
   steps:
   - task: PublishTestResults@2
     displayName: 'Publish test results'
     inputs:
       testResultsFormat: 'JUnit'
-      testResultsFiles: '$(CypressFolderPath)/results/result-*.xml'
+      testResultsFiles: '$(Build.SourcesDirectory)/cypress/results/result-*.xml'
+      # mergeTestResults: true
+      testRunTitle: 'Basic Cypress tests'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish videos'
+    condition: succeededOrFailed()
+    continueOnError: True
+    inputs:
+      PathtoPublish: '$(SourcesDirectory)/cypress/videos'
+      ArtifactName: videos
+
+- job: Job_4
+  dependsOn: Job_2
+  condition: eq(dependencies.Job_2.result,'SucceededWithIssues')
+  displayName: Publish failed results
+  steps:
+  - task: PublishTestResults@2
+    displayName: 'Publish test results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '$(Build.SourcesDirectory)/cypress/results/result-*.xml'
       # mergeTestResults: true
       testRunTitle: 'Basic Cypress tests'
       searchFolder: '$(System.DefaultWorkingDirectory)'
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish screenshots'
-    condition: failed()
+    condition: succeededOrFailed()
     continueOnError: True
     inputs:
-      PathtoPublish: '$(CypressFolderPath)/screenshots'
+      PathtoPublish: '$(SourcesDirectory)/cypress/screenshots'
       ArtifactName: screenshots
 
   - task: PublishBuildArtifacts@1
@@ -67,9 +89,8 @@ jobs:
     condition: succeededOrFailed()
     continueOnError: True
     inputs:
-      PathtoPublish: '$(CypressFolderPath)/videos'
+      PathtoPublish: '$(SourcesDirectory)/cypress/videos'
       ArtifactName: videos
-
 
 
 
