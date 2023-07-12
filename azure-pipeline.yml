@@ -37,7 +37,7 @@ jobs:
 
 - job: Job_2
   dependsOn: Job_1
-  condition: eq(dependencies.Job_1.result,'SucceededOrFailed')
+  condition: eq(dependencies.Job_1.result,'SucceededWithIssues')
   displayName: Publish test results
   steps:
   - task: PublishTestResults@2
@@ -64,3 +64,17 @@ jobs:
     inputs:
       PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
       ArtifactName: videos
+
+- job: Job_3
+  dependsOn: Job_1
+  condition: eq(dependencies.Job_1.result,'Succeeded')
+  displayName: Publish test results
+  steps:
+  - task: PublishTestResults@2
+    displayName: 'Publish test results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
+      # mergeTestResults: true
+      testRunTitle: 'Basic Cypress tests'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
