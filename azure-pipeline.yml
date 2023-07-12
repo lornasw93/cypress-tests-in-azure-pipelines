@@ -10,43 +10,4 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '18.x'
-    displayName: 'Install Node.js'
-
-  - script: npm ci
-    displayName: 'Install NPM dependencies'
-
-  - script: npm run cy:verify
-    displayName: 'Verify Cypress is installed'
-
-  - script: |
-      npm install -g wait-on
-      npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
-    continueOnError: True
-    displayName: 'Run e2e tests'
-
-  - task: PublishTestResults@2
-    displayName: 'Publish test results'
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
-      testRunTitle: '$(Build.BuildNumber)'
-      searchFolder: '$(System.DefaultWorkingDirectory)'
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish screenshots'
-    condition: succeededOrFailed()
-    continueOnError: True
-    inputs:
-      PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots'
-      ArtifactName: screenshots
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish videos'
-    condition: succeededOrFailed()
-    continueOnError: True
-    inputs:
-      PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
-      ArtifactName: videos
+- template: templates/cypress-steps.yml
