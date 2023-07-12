@@ -1,5 +1,3 @@
-# /home/vsts/work/1/s == $(Build.SourcesDirectory)
-
 trigger:
   paths:
     include:
@@ -9,7 +7,7 @@ variables:
   CypressFolderPath: '/home/vsts/work/1/s/cypress'
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 
 steps:
   - task: NodeTool@0
@@ -29,15 +27,11 @@ steps:
     continueOnError: True
     displayName: 'Run e2e tests'
 
-  # - script: npm run cy:run-junit-reporter:component
-  #   displayName: 'Run Cypress component tests'
-
   - task: PublishTestResults@2
     displayName: 'Publish test results'
     inputs:
       testResultsFormat: 'JUnit'
       testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
-      # mergeTestResults: true
       testRunTitle: '$(Build.BuildNumber)'
       searchFolder: '$(System.DefaultWorkingDirectory)'
 
