@@ -37,4 +37,6 @@ export default defineConfig({
     toConsole: true,
     attachments: true,
   },
+  screenshotsFolder: "cypress/screenshots",
+  videosFolder: "cypress/videos"
 });
