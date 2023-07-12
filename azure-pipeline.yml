@@ -10,3 +10,4 @@ jobs:
 - template: templates/cypress-steps.yml
   parameters:
     baseUrl: http://localhost:4173
+    vmImage: 'ubuntu-latest'

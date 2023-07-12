@@ -1,9 +1,13 @@
 parameters:
 - name: baseUrl
   default: ''
+- name: vmImage
+  default: ''
 
 jobs:
 - job: Cypress_tests
+  pool: 
+    vmImage: ${{ parameters.vmImage }}
   steps:
     - task: NodeTool@0
       inputs:
