@@ -3,8 +3,11 @@ trigger:
     include:
       - master
 
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-- template: templates/cypress-steps.yml
+jobs:
+- job: Linux
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - template: templates/cypress-steps.yml
+    parameters:
+    baseUrl: http://localhost:4173
