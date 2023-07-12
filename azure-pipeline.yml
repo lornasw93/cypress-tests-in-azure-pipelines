@@ -7,7 +7,7 @@ variables:
   CypressFolderPath: '/home/vsts/work/1/s/cypress'
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubuntu-latest'
 
 steps:
 - template: templates/cypress-steps.yml
