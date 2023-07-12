@@ -38,7 +38,7 @@ steps:
       testResultsFormat: 'JUnit'
       testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
       # mergeTestResults: true
-      testRunTitle: 'Basic Cypress tests'
+      testRunTitle: '$(Build.BuildNumber)'
       searchFolder: '$(System.DefaultWorkingDirectory)'
 
   - task: PublishBuildArtifacts@1
