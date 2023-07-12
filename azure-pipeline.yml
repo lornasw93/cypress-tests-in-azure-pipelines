@@ -36,7 +36,7 @@ jobs:
   #   displayName: 'Run Cypress component tests'
 
 - job: Job_2
-  dependsOn: Job_21
+  dependsOn: Job_1
   condition: eq(dependencies.Job_1.result,'Succeeded')
   displayName: Publish success results
   steps:
