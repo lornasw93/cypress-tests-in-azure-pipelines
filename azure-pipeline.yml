@@ -13,7 +13,7 @@ pool:
 
 jobs:
 - job: Job_1
-  displayName: Pre-requisites
+  displayName: Pre-requisites & run tests
   steps:
   - task: NodeTool@0
     inputs:
@@ -37,36 +37,14 @@ jobs:
 
 - job: Job_2
   dependsOn: Job_1
-  condition: eq(dependencies.Job_1.result,'Succeeded')
-  displayName: Publish success results
+  condition: eq(dependencies.Job_1.result,'SucceededOrFailed')
+  displayName: Publish test results
   steps:
   - task: PublishTestResults@2
     displayName: 'Publish test results'
     inputs:
       testResultsFormat: 'JUnit'
       testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
-      # mergeTestResults: true
-      testRunTitle: 'Basic Cypress tests'
-      searchFolder: '$(System.DefaultWorkingDirectory)'
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish videos'
-    condition: succeededOrFailed()
-    continueOnError: True
-    inputs:
-      PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
-      ArtifactName: videos
-
-- job: Job_3
-  dependsOn: Job_1
-  condition: eq(dependencies.Job_1.result,'SucceededWithIssues')
-  displayName: Publish failed results
-  steps:
-  - task: PublishTestResults@2
-    displayName: 'Publish test results'
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '$/home/vsts/work/1/s/cypress/results/result-*.xml'
       # mergeTestResults: true
       testRunTitle: 'Basic Cypress tests'
       searchFolder: '$(System.DefaultWorkingDirectory)'
