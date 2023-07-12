@@ -32,7 +32,7 @@ jobs:
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish screenshots'
-      condition: succeededOrFailed()
+      condition: failed()
       continueOnError: True
       inputs:
         PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots'
