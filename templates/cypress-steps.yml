@@ -3,7 +3,7 @@ parameters:
   default: ''
 
 jobs:
-- job: Cypress tests
+- job: Cypress_tests
   steps:
     - task: NodeTool@0
       inputs:
