@@ -11,52 +11,111 @@ variables:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- checkout: self
-  fetchDepth: 0
-  fetchTags: "false"
+jobs:
+- job: Job_1
+  displayName: Pre-requisites
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.x'
+    displayName: 'Install Node.js'
+
+  - script: npm ci
+    displayName: 'Install NPM dependencies'
+
+  - script: npm run cy:verify
+    displayName: 'Verify Cypress is installed'
+
+- job: Job_2
+  dependsOn: Job_1
+  condition: succeeded()
+  displayName: Run Cypress tests
+  steps:
+  - script: |
+      npm install -g wait-on
+      npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
+    continueOnError: True
+    displayName: 'Run e2e tests'
+
+  # - script: npm run cy:run-junit-reporter:component
+  #   displayName: 'Run Cypress component tests'
+
+- job: Job_3
+  dependsOn: Job_2
+  condition: eq(dependencies.Job_2.result,'SucceededWithIssues')
+  displayName: Publish results
+  steps:
+  - task: PublishTestResults@2
+    displayName: 'Publish test results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '$(CypressFolderPath)/results/result-*.xml'
+      # mergeTestResults: true
+      testRunTitle: 'Basic Cypress tests'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish screenshots'
+    condition: failed()
+    continueOnError: True
+    inputs:
+      PathtoPublish: '$(CypressFolderPath)/screenshots'
+      ArtifactName: screenshots
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish videos'
+    condition: succeededOrFailed()
+    continueOnError: True
+    inputs:
+      PathtoPublish: '$(CypressFolderPath)/videos'
+      ArtifactName: videos
+
+
+
+
+
+
+
+
+# steps:
+# - checkout: self
+#   fetchDepth: 0
+#   fetchTags: "false"
  
-- task: NodeTool@0
-  inputs:
-    versionSpec: '18.x'
-  displayName: 'Install Node.js'
+# - task: NodeTool@0
+#   inputs:
+#     versionSpec: '18.x'
+#   displayName: 'Install Node.js'
 
-- script: npm ci
-  displayName: 'Install NPM dependencies'
+# - script: npm ci
+#   displayName: 'Install NPM dependencies'
 
-- script: npm run cy:verify
-  displayName: 'Verify Cypress is installed'
+# - script: npm run cy:verify
+#   displayName: 'Verify Cypress is installed'
 
-- script: |
-    npm install -g wait-on
-    npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
-  continueOnError: True
-  displayName: 'Run e2e tests'
 
-# - script: npm run cy:run-junit-reporter:component
-#   displayName: 'Run Cypress component tests'
 
-- task: PublishTestResults@2
-  displayName: 'Publish test results'
-  inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '$(CypressFolderPath)/results/result-*.xml'
-    # mergeTestResults: true
-    testRunTitle: 'Basic Cypress tests'
-    searchFolder: '$(System.DefaultWorkingDirectory)'
+# - task: PublishTestResults@2
+#   displayName: 'Publish test results'
+#   inputs:
+#     testResultsFormat: 'JUnit'
+#     testResultsFiles: '$(CypressFolderPath)/results/result-*.xml'
+#     # mergeTestResults: true
+#     testRunTitle: 'Basic Cypress tests'
+#     searchFolder: '$(System.DefaultWorkingDirectory)'
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish screenshots'
-  condition: succeededOrFailed()
-  continueOnError: True
-  inputs:
-    PathtoPublish: '$(CypressFolderPath)/screenshots'
-    ArtifactName: screenshots
+# - task: PublishBuildArtifacts@1
+#   displayName: 'Publish screenshots'
+#   condition: succeededOrFailed()
+#   continueOnError: True
+#   inputs:
+#     PathtoPublish: '$(CypressFolderPath)/screenshots'
+#     ArtifactName: screenshots
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish videos'
-  condition: succeededOrFailed()
-  continueOnError: True
-  inputs:
-    PathtoPublish: '$(CypressFolderPath)/videos'
-    ArtifactName: videos
+# - task: PublishBuildArtifacts@1
+#   displayName: 'Publish videos'
+#   condition: succeededOrFailed()
+#   continueOnError: True
+#   inputs:
+#     PathtoPublish: '$(CypressFolderPath)/videos'
+#     ArtifactName: videos
