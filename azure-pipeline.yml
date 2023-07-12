@@ -74,7 +74,6 @@ jobs:
     displayName: 'Publish test results'
     inputs:
       testResultsFormat: 'JUnit'
-      testResultsFiles: '**/results/result-*.xml'
+      testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
       # mergeTestResults: true
       testRunTitle: 'Basic Cypress tests'
-      searchFolder: '$(System.DefaultWorkingDirectory)'
