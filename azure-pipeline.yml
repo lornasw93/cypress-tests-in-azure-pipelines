@@ -26,11 +26,6 @@ jobs:
   - script: npm run cy:verify
     displayName: 'Verify Cypress is installed'
 
-- job: Job_2
-  dependsOn: Job_1
-  #condition: succeeded()
-  displayName: Run Cypress tests
-  steps:
   - script: |
       npm install -g wait-on
       npm run start:e2e & wait-on http://localhost:4173 & npm run cy:run-junit-reporter:e2e
@@ -40,9 +35,9 @@ jobs:
   # - script: npm run cy:run-junit-reporter:component
   #   displayName: 'Run Cypress component tests'
 
-- job: Job_3
-  dependsOn: Job_2
-  condition: eq(dependencies.Job_2.result,'Succeeded')
+- job: Job_2
+  dependsOn: Job_21
+  condition: eq(dependencies.Job_1.result,'Succeeded')
   displayName: Publish success results
   steps:
   - task: PublishTestResults@2
@@ -62,9 +57,9 @@ jobs:
       PathtoPublish: '$(SourcesDirectory)/cypress/videos'
       ArtifactName: videos
 
-- job: Job_4
-  dependsOn: Job_2
-  condition: eq(dependencies.Job_2.result,'SucceededWithIssues')
+- job: Job_3
+  dependsOn: Job_1
+  condition: eq(dependencies.Job_1.result,'SucceededWithIssues')
   displayName: Publish failed results
   steps:
   - task: PublishTestResults@2
