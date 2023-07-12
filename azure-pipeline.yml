@@ -3,5 +3,8 @@ trigger:
     include:
       - master
 
+pool:
+  vmImage: 'ubuntu-latest'
+
 steps:
 - template: templates/cypress-steps.yml
