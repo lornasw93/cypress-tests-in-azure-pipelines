@@ -1,3 +1,6 @@
+pool:
+  vmImage: 'ubuntu-latest'
+
 steps:
   - task: NodeTool@0
     inputs:
