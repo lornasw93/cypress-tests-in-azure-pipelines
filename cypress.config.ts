@@ -27,7 +27,7 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       codeCoverageTask(on, config);
 
-      return config;
+      return require('cypress-high-resolution')(on, config)
     },
   },
 
