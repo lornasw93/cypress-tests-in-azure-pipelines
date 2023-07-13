@@ -20,7 +20,7 @@ jobs:
       - script: npm run cy:verify
         displayName: "Verify Cypress is installed"
 
-      # Need to ensure it's running before running tests and generating a report
+      # Need to ensure server is running before running tests and generating a report
       - script: |
           npm install -g wait-on
           npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:e2e
@@ -35,10 +35,11 @@ jobs:
           testResultsFiles: "/home/vsts/work/1/s/cypress/results/result-*.xml"
           testRunTitle: "$(Build.BuildNumber)"
           searchFolder: "$(System.DefaultWorkingDirectory)"
+          mergeTestResults: true
 
       - task: PublishBuildArtifacts@1
         displayName: "Publish screenshots"
-        condition: failed()
+        condition: succeededOrFailed()
         continueOnError: True
         inputs:
           PathtoPublish: "/home/vsts/work/1/s/cypress/screenshots"

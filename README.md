@@ -6,16 +6,14 @@ The purpose of this dummy project was to run cypress tests within Azure pipeline
 2. Aid in a potential upcoming blog post as reference material
 
 Packages worthy to note
-* [cypress-junit-reporter](https://www.npmjs.com/package/cypress-junit-reporter) was used to generate the XML reports
-* [wait-on](https://www.npmjs.com/package/wait-on) was used...
+* [cypress-junit-reporter](https://www.npmjs.com/package/cypress-junit-reporter) for generating XML reports
+* [wait-on](https://www.npmjs.com/package/wait-on) for ensuring server is running before attempting to run cypress tests
 
 Note, there are only e2e tests and no component tests in this project.
 
 Demos included [here](demos.md) ✨
 
 ## How to run 🏃‍♀️
-
-After cloning the project, ensure you install NPM dependencies.
 
 After cloning the project, ensure you install NPM dependencies.
 
@@ -146,7 +144,7 @@ jobs:
 ```
 
 ### azure-pipeline.yml
-Finally, to bring everything together we utilise the YAML template ^ into this [azure-pipeline.yml](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/azure-pipeline.yml).
+Finally, to bring everything together we utilise the YAML template ^ into this [file](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/azure-pipeline.yml).
 
 ```yaml
 trigger:
