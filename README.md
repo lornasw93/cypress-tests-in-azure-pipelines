@@ -8,7 +8,7 @@ The purpose of this dummy project was to run cypress tests within Azure pipeline
 I used 2 basic cypress tests from this [repo](https://github.com/cypress-io/cypress-example-kitchensink) to get up and running fast.
 
 To note (able to see most in [demos](demos.md) and in screenshots below):
-* Only e2e tests and no component tests in this project
+* Only e2e tests and no component tests in this project (wanting to add it in at some point 🔮)
 * Test results are viewable in pipeline console
 * If tests have failed, the build will have a warning on it
 * Screenshot artifacts are generated only if you have a failed test result
