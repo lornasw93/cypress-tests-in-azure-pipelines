@@ -8,6 +8,8 @@ I used [cypress-junit-reporter](https://www.npmjs.com/package/cypress-junit-repo
 
 Only e2e tests, no component tests in this project.
 
+Repo lives [here](https://github.com/lornasw93/react-vite-cypress-azure-ts).
+
 ## How to run
 After pulling down this project, ensure you install NPM dependencies.
 
