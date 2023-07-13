@@ -5,13 +5,24 @@ The purpose of this dummy project was to run cypress tests within Azure pipeline
 1. Allow me to isolate and test pipeline changes without affecting a "real" project
 2. Aid in a potential upcoming blog post as reference material
 
+I used 2 basic cypress tests from this [repo](https://github.com/cypress-io/cypress-example-kitchensink) to get up and running fast.
+
+To note (able to see most in [demos](demos.md))
+* Only e2e tests and no component tests in this project
+* Test results are viewable in pipeline console
+* If tests have failed, the build will have a warning on it
+* Screenshot artifacts are generated only if you have a failed test result
+* Video artifacts are generated if you have either a successful or failed test result
+* Test run name is build number
+* Test run results are merged otherwise for each spec file (cy.ts) you'd have a separate test run for each i.e. <build number>_1, <build number>_2
+
 Packages worthy to note
 * [cypress-junit-reporter](https://www.npmjs.com/package/cypress-junit-reporter) for generating XML reports
 * [wait-on](https://www.npmjs.com/package/wait-on) for ensuring server is running before attempting to run cypress tests
 
-Note, there are only e2e tests and no component tests in this project.
+This [blog post](https://www.edgewordstraining.co.uk/2021/02/04/cypress-yaml-pipeline-in-azure-devops/) helped me along really nicely.
 
-Demos included [here](demos.md) ✨
+**Demos included [here](demos.md)** ✨
 
 ## How to run 🏃‍♀️
 
@@ -24,7 +35,7 @@ npm i
 
 Although the focus of this repo is running tests in pipelines, I'll cover how to run the tests locally.
 
-### Run locally with Cypress app
+### Run locally with Cypress app 📍
 
 Run below.
 
@@ -40,7 +51,7 @@ cypress open
 
 ```
 
-### Generate XML report for specific test
+### Generate XML report for specific test 🔃
 
 Again, ensure you're running locally.
 
@@ -56,10 +67,10 @@ npx cypress run --reporter junit --spec "cypress/e2e/todo.cy.ts"
 
 ```
 
-## The juicy bit... Project setup 101 💪
+## Project setup
 The following files (but not limited to) were key in getting all this magic to work.
 
-### cypress.config.ts
+### cypress.config.ts 📄
 A new reporter section added to the [file](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/cypress.config.ts).
 
 ```yaml
@@ -74,7 +85,7 @@ A new reporter section added to the [file](https://github.com/lornasw93/react-vi
   videosFolder: "cypress/videos",
   ```
 
-### package.json
+### package.json 📄
 I added new scripts [here](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/package.json) that are utilised within the pipeline. Reminder: there are no working component tests in this project but have added the command for full-picture.
 
 ```json
@@ -83,7 +94,7 @@ I added new scripts [here](https://github.com/lornasw93/react-vite-cypress-azure
   "cy:run-junit-reporter:e2e": "cypress run --reporter junit"
 ```
 
-### cypress-steps.yml
+### cypress-steps.yml 📄
 The content of this [file](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/templates/cypress-steps.yml) was originally within the [azure-pipeline.yml](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/azure-pipeline.yml) file but has been extracted out of there to ensure reusability using YAML templates (very cool 😎).
 
 ```yaml
@@ -124,7 +135,9 @@ jobs:
           testResultsFiles: "/home/vsts/work/1/s/cypress/results/result-*.xml"
           testRunTitle: "$(Build.BuildNumber)"
           searchFolder: "$(System.DefaultWorkingDirectory)"
+          mergeTestResults: true
 
+      # Publish video artifacts when tests have failed
       - task: PublishBuildArtifacts@1
         displayName: "Publish screenshots"
         condition: failed()
@@ -143,7 +156,7 @@ jobs:
           ArtifactName: videos
 ```
 
-### azure-pipeline.yml
+### azure-pipeline.yml 📄
 Finally, to bring everything together we utilise the YAML template ^ into this [file](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/azure-pipeline.yml).
 
 ```yaml
@@ -159,6 +172,11 @@ jobs:
       vmImage: "ubuntu-latest"
 ```
 
-## Notes 📝
+## End results ✅
 
-Originally, I was generating screenshots for only failed test runs but found that when having multiple test files
+The following image shows 2 builds within Azure Pipelines - 1 successful and 1 warning, each with artifacts.
+
+![alt text](/assets/new/results.png)
+
+## Notes 📝
+If you have really bad video artifact quality, check the video compression within your cypress config file.
