@@ -8,6 +8,10 @@ I used [cypress-junit-reporter](https://www.npmjs.com/package/cypress-junit-repo
 
 Only e2e tests, no component tests in this project.
 
+ 
+
+
+
 Repo lives [here](https://github.com/lornasw93/react-vite-cypress-azure-ts).
 
 ## How to run
@@ -44,117 +48,24 @@ Then the following command.
 npx cypress run --reporter junit --spec "cypress/e2e/signing-up.cy.ts"
 ```
 
+* [azure-pipeline.yml](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/azure-pipeline.yml)
+* [templates/cypress-steps.yml](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/templates/cypress-steps.yml)
+* [cypress.config.ts](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/cypress.config.ts)
+* [package.json](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/package.json)
+
 ## Azure pipeline YAML
 
-I've utilised a YAML template so in future when injecting creation of cypress test results in pipelines, it's reusable. 
+## Features
 
-### azure-pipeline.yml
+### Ability to create bugs from a failed test run result
 
-The following script has been reduced, see full script [here](here)
+In this short demo, I have selected a failed test run and attempted to create a new bug. You can view more info on the error too as well as the stack trace. You are also able to add to an existing bug. The MP4 version of the gif below is available in [here](https://google.com).
 
-[file](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/azure-pipeline.yml) lives here.
+[Demo 1](/assets/demo/create%20bugs%20from%20a%20failed%20test%20result.gif)
 
-```yaml
-jobs:
-- template: templates/cypress-steps.yml
-  parameters:
-    baseUrl: http://localhost:4173
-    vmImage: 'ubuntu-latest'
-```
+## Notes
 
-### templates/cypress-steps.yml
-
-[file](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/templates/cypress-steps.yml) lives here.
-
-The [wait-on](https://www.npmjs.com/package/wait-on) NPM package has been SUPER useful.
-
-```yaml
-parameters:
-- name: baseUrl
-  default: ''
-- name: vmImage
-  default: ''
-
-jobs:
-- job: Cypress_tests
-  pool: 
-    vmImage: ${{ parameters.vmImage }}
-  steps:
-    - task: NodeTool@0
-      inputs:
-        versionSpec: '18.x'
-      displayName: 'Install Node.js'
-
-    - script: npm ci
-      displayName: 'Install NPM dependencies'
-
-    - script: npm run cy:verify
-      displayName: 'Verify Cypress is installed'
-
-    # Using wait-on NPM package, we need to ensure it's running before running tests and generating a report
-    - script: |
-        npm install -g wait-on
-        npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:e2e
-      continueOnError: True
-      displayName: 'Run e2e tests'
-
-    # Something here
-    - task: PublishTestResults@2
-      displayName: 'Publish test results'
-      inputs:
-        testResultsFormat: 'JUnit'
-        testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
-        testRunTitle: '$(Build.BuildNumber)'
-        searchFolder: '$(System.DefaultWorkingDirectory)'
-
-    # Publish screenshot artifacts only when tests have failed
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish screenshots'
-      condition: failed()
-      continueOnError: True
-      inputs:
-        PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots'
-        ArtifactName: screenshots
-
-    # Publish video artifacts when tests have succeeded or failed
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish videos'
-      condition: succeededOrFailed()
-      continueOnError: True
-      inputs:
-        PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
-        ArtifactName: videos
-```
-
-## Project config
-
-### package.json
-Take note of these additional scripts that are utilised within the pipeline. Reminder: there are no working component tests in this project but have added the command for full-picture.
-
-[file](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/package.json)
-
-```json
-  "cy:verify": "cypress verify",
-  "cy:run-junit-reporter:component": "cypress run -q --component --reporter junit",
-  "cy:run-junit-reporter:e2e": "cypress run --reporter junit"
-```
-
-### cypress.config.ts
-Take note of the reporter section at the bottom of the file.
-
-[file](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/cypress.config.ts)
-
-```yaml
-  reporter: "junit",
-  reporterOptions: {
-    mochaFile: "cypress/results/result-[hash].xml",
-    toConsole: true,
-    attachments: true,
-    embeddedScreenshots: true,
-  },
-  screenshotsFolder: "cypress/screenshots",
-  videosFolder: "cypress/videos",
-  ```
+Originally, I was generating screenshots for only failed test runs but found that when having multiple test files
 
 ## Summary
 
