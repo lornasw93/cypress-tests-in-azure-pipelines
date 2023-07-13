@@ -38,5 +38,5 @@ export default defineConfig({
     embeddedScreenshots: true,
   },
   screenshotsFolder: "cypress/screenshots",
-  videosFolder: "cypress/videos"
+  videosFolder: "cypress/videos",
 });
