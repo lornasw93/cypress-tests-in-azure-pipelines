@@ -174,9 +174,23 @@ jobs:
 
 ## End results ✅
 
-The following image shows 2 builds within Azure Pipelines - 1 successful and 1 warning, each with artifacts.
+The following image shows 2 completed builds within Azure Pipelines at the top - 1 successful and 1 warning, each with artifacts (successful build only has videos and warning as both videos and screenshots). Selecting the **Tests** tab, you can see a summary of the results where you can do the following for a failed test:
+* View basic info such as how long the test ran for
+* Create a new bug 
+* View stack trace
+* Add to an existing bug
+* Associate test to a work item
 
-![alt text](/assets/demo/new/results.png)
+Usefully, you can also filter in the table shown - for example, you can filter by **Outcome** to see only failed tests.
+
+![alt text](/assets/demo/new/pipeline%20results.png)
+
+In the **Test Plans > Runs** section in DevOps, you can view the following info (based on the same builds above):
+* Able to do the same as above (create new bug, view stack trace etc.)
+* View charts
+* Download XML test results - it's a zip as there are 2 test runs
+
+![alt text](/assets/demo/new/test%20runs.png)
 
 ## Notes 📝
-If you have really bad video artifact quality, check the video compression within your cypress config file.
+If you have really bad video artifact quality, check the video compression within your cypress config file. I've put the build number as the test run name but feel it can be named better (can still link back to build with it) - any suggestions? 🤔
