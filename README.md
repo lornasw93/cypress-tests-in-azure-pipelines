@@ -183,14 +183,14 @@ The following image shows 2 completed builds within Azure Pipelines at the top -
 
 Usefully, you can also filter in the table shown - for example, you can filter by **Outcome** to see only failed tests.
 
-![alt text](/assets/demo/new/pipeline%20results.png)
+![alt text](/assets/demo/pipeline%20results.png)
 
 In the **Test Plans > Runs** section in DevOps, you can view the following info (based on the same builds above):
 * Able to do the same as above (create new bug, view stack trace etc.)
 * View charts
 * Download XML test results - it's a zip as there are 2 test runs
 
-![alt text](/assets/demo/new/test%20runs.png)
+![alt text](/assets/demo/test%20runs.png)
 
 ## Notes 📝
 If you have really bad video artifact quality, check the video compression within your cypress config file. I've put the build number as the test run name but feel it can be named better (can still link back to build with it) - any suggestions? 🤔
