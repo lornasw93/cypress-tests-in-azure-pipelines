@@ -5,15 +5,13 @@ The purpose of this dummy project was to run cypress tests within Azure pipeline
 1. Allow me to isolate and test pipeline changes
 2. Aid in a potential upcoming blog post as reference material
 
-I used [cypress-junit-reporter](https://www.npmjs.com/package/cypress-junit-reporter) to generate the XML reports based off cypress test results
+Useful links
+* Demos included [here](demos.md)
+* [cypress-junit-reporter](https://www.npmjs.com/package/cypress-junit-reporter) package was used to to generate the XML reports based from cypress test results
 
-Only e2e tests, no component tests in this project.
+## How to run 🏃‍♀️
 
-Repo lives [here](https://github.com/lornasw93/react-vite-cypress-azure-ts).
-
-## How to run
-
-After pulling down this project, ensure you install NPM dependencies.
+After cloning the project, ensure you install NPM dependencies.
 
 ```sh
 npm i
@@ -48,7 +46,7 @@ npm run start:e2e
 Then the following command.
 
 ```sh
-npx cypress run --reporter junit --spec "cypress/e2e/signing-up.cy.ts"
+npx cypress run --reporter junit --spec "cypress/e2e/todo.cy.ts"
 
 ```
 
@@ -57,31 +55,12 @@ npx cypress run --reporter junit --spec "cypress/e2e/signing-up.cy.ts"
 * [cypress.config.ts](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/cypress.config.ts)
 * [package.json](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/package.json)
 
-## Azure pipeline YAML
-
-## Features
-
-### Ability to create bugs from a failed test run result
-
-In this short demo, I have selected a failed test run and attempted to create a new bug. You can view more info on the error too as well as the stack trace. You are also able to add to an existing bug. The MP4 version of the gif below is available in [here](/assets/demo/fail/create%20bug.mp4).
-
-![](/assets/demo/fail/create%20bug.gif)
-
-### View artifact video
-
-Blah
-
-![](/assets/demo/success/view%20artifact%20video.gif)
-
-### View test results in console
-
-Blah
-
-![](/assets/demo/success/view%20results%20in%20console.gif)
-
-## Notes
+## Notes 📝
 
 Originally, I was generating screenshots for only failed test runs but found that when having multiple test files
+
+
+Only e2e tests, no component tests in this project.
 
 ## Summary
 

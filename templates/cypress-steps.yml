@@ -27,7 +27,7 @@ jobs:
         continueOnError: True
         displayName: "Run e2e tests"
 
-      # Something here
+      # Generate XML reports for each spec file
       - task: PublishTestResults@2
         displayName: "Publish test results"
         inputs:
@@ -38,7 +38,7 @@ jobs:
 
       - task: PublishBuildArtifacts@1
         displayName: "Publish screenshots"
-        condition: succeededWithIssues()
+        condition: failed()
         continueOnError: True
         inputs:
           PathtoPublish: "/home/vsts/work/1/s/cypress/screenshots"
