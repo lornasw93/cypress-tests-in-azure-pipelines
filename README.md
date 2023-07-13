@@ -8,10 +8,6 @@ I used [cypress-junit-reporter](https://www.npmjs.com/package/cypress-junit-repo
 
 Only e2e tests, no component tests in this project.
 
- 
-
-
-
 Repo lives [here](https://github.com/lornasw93/react-vite-cypress-azure-ts).
 
 ## How to run
@@ -61,7 +57,7 @@ npx cypress run --reporter junit --spec "cypress/e2e/signing-up.cy.ts"
 
 In this short demo, I have selected a failed test run and attempted to create a new bug. You can view more info on the error too as well as the stack trace. You are also able to add to an existing bug. The MP4 version of the gif below is available in [here](https://google.com).
 
-[Demo 1](/assets/demo/create%20bugs%20from%20a%20failed%20test%20result.gif)
+![](/assets/demo/create%20bugs%20from%20a%20failed%20test%20result.gif)
 
 ## Notes
 
