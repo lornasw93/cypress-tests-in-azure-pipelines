@@ -176,7 +176,7 @@ jobs:
 
 The following image shows 2 builds within Azure Pipelines - 1 successful and 1 warning, each with artifacts.
 
-![alt text](/assets/new/results.png)
+![alt text](/assets/demo/new/results.png)
 
 ## Notes 📝
 If you have really bad video artifact quality, check the video compression within your cypress config file.
