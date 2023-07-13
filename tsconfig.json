@@ -3,10 +3,7 @@
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "types": [
-      "cypress-axe",
-      "cypress"
-    ],
+    "types": ["cypress-axe", "cypress"],
     "baseUrl": "./",
     "allowJs": true,
     "skipLibCheck": true,
@@ -25,5 +22,5 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
 }
