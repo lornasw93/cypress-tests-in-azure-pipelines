@@ -11,8 +11,7 @@ export default defineConfig({
   e2e: {
     defaultCommandTimeout: 6000, // set command timeout to 6secs
     baseUrl: "http://localhost:4173",
-    video: true,
-    videoCompression: 50,
+    video: true
   },
 
   component: {
@@ -27,7 +26,7 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       codeCoverageTask(on, config);
 
-      return require('cypress-high-resolution')(on, config)
+      return config;
     },
   },
 

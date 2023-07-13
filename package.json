@@ -13,8 +13,8 @@
     "test:unit": "vitest run --coverage",
     "cy:verify": "cypress verify",
     "cy:info": "cypress info",
-    "cy:run-junit-reporter:component": "cypress run -q resolution=high --component --reporter junit",
-    "cy:run-junit-reporter:e2e": "cypress run resolution=high --reporter junit"
+    "cy:run-junit-reporter:component": "cypress run -q --component --reporter junit",
+    "cy:run-junit-reporter:e2e": "cypress run --reporter junit"
   },
   "dependencies": {
     "@cypress/code-coverage": "^3.10.8",
