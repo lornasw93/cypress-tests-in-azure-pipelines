@@ -36,10 +36,9 @@ jobs:
           testRunTitle: "$(Build.BuildNumber)"
           searchFolder: "$(System.DefaultWorkingDirectory)"
 
-      # Publish screenshot artifacts when tests have succeeded or failed
       - task: PublishBuildArtifacts@1
         displayName: "Publish screenshots"
-        condition: failed()
+        condition: succeededWithIssues()
         continueOnError: True
         inputs:
           PathtoPublish: "/home/vsts/work/1/s/cypress/screenshots"
