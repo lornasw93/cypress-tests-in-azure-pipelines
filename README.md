@@ -1,15 +1,21 @@
-# Azure Cypress React Dummy Project
+# Azure-Cypress-React Dummy Project
 
 The purpose of this dummy project was to run cypress tests within Azure pipelines and better yet, view the test results within the Test Plan section of Azure DevOps so we can view more info (such as error message, screenshot, video) and charts. I wanted to create a minimal project to:
 
 1. Allow me to isolate and test pipeline changes without affecting a "real" project
 2. Aid in a potential upcoming blog post as reference material
 
-Useful links
-* Demos included [here](demos.md) ✨
-* [cypress-junit-reporter](https://www.npmjs.com/package/cypress-junit-reporter) package was used to to generate the XML reports based from cypress test results
+Packages worthy to note
+* [cypress-junit-reporter](https://www.npmjs.com/package/cypress-junit-reporter) was used to generate the XML reports
+* [wait-on](https://www.npmjs.com/package/wait-on) was used...
+
+Note, there are only e2e tests and no component tests in this project.
+
+Demos included [here](demos.md) ✨
 
 ## How to run 🏃‍♀️
+
+After cloning the project, ensure you install NPM dependencies.
 
 After cloning the project, ensure you install NPM dependencies.
 
@@ -158,8 +164,3 @@ jobs:
 ## Notes 📝
 
 Originally, I was generating screenshots for only failed test runs but found that when having multiple test files
-
-
-Only e2e tests, no component tests in this project.
-
-The [wait-on](https://www.npmjs.com/package/wait-on) NPM package has been SUPER useful.
