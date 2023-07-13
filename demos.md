@@ -1,6 +1,6 @@
 # Demos 🔥
 
-I have included several short demos below in a GIF format for ease of viewing and have also attached the equivalent MP4 copy with each demo description with this icon > 🎥, in case wanting to watch more carefully.
+I have included several short demos below in a GIF format for ease of viewing and have also attached the equivalent MP4 copy with each demo title with this icon > 🎥, in case wanting to watch more carefully.
 
 ### 1. Create bug from a failed test run result [🎥](/assets/demo/fail%20-%20create%20bug.mp4)
 

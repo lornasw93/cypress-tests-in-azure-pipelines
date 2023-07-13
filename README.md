@@ -7,13 +7,13 @@ The purpose of this dummy project was to run cypress tests within Azure pipeline
 
 I used 2 basic cypress tests from this [repo](https://github.com/cypress-io/cypress-example-kitchensink) to get up and running fast.
 
-To note (able to see most in [demos](demos.md))
+To note (able to see most in [demos](demos.md) and in screenshots below):
 * Only e2e tests and no component tests in this project
 * Test results are viewable in pipeline console
 * If tests have failed, the build will have a warning on it
 * Screenshot artifacts are generated only if you have a failed test result
 * Video artifacts are generated if you have either a successful or failed test result
-* Test run name is build number
+* Test run name is build number (want to change this to something more meaningful! 🤔)
 * Test run results are merged otherwise for each spec file (cy.ts) you'd have a separate test run for each i.e. <build number>_1, <build number>_2
 
 Packages worthy to note
@@ -30,7 +30,6 @@ After cloning the project, ensure you install NPM dependencies.
 
 ```sh
 npm i
-
 ```
 
 Although the focus of this repo is running tests in pipelines, I'll cover how to run the tests locally.
@@ -41,14 +40,12 @@ Run below.
 
 ```sh
 npm run start:e2e
-
 ```
 
 The next command will open Cypress application.
 
 ```sh
 cypress open
-
 ```
 
 ### Generate XML report for specific test 🔃
@@ -57,14 +54,12 @@ Again, ensure you're running locally.
 
 ```sh
 npm run start:e2e
-
 ```
 
 Then the following command.
 
 ```sh
 npx cypress run --reporter junit --spec "cypress/e2e/todo.cy.ts"
-
 ```
 
 ## Project setup
@@ -193,4 +188,4 @@ In the **Test Plans > Runs** section in DevOps, you can view the following info 
 ![alt text](/assets/demo/test%20runs.png)
 
 ## Notes 📝
-If you have really bad video artifact quality, check the video compression within your cypress config file. I've put the build number as the test run name but feel it can be named better (can still link back to build with it) - any suggestions? 🤔
+If you have really bad video artifact quality, check the video compression within your cypress config file.
