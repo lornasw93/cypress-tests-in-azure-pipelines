@@ -72,7 +72,7 @@ The following files (but not limited to) were key in getting all this magic to w
 
 A new reporter section added to the [file](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/cypress.config.ts).
 
-```yaml
+```ts
 reporter: "junit",
 reporterOptions: {
   mochaFile: "cypress/results/result-[hash].xml",
@@ -81,8 +81,7 @@ reporterOptions: {
   embeddedScreenshots: true,
 },
 screenshotsFolder: "cypress/screenshots",
-videosFolder: "cypress/videos",
-```
+videosFolder: "cypress/videos",```
 
 ### package.json 📄
 
