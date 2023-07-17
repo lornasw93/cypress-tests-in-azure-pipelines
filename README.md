@@ -9,13 +9,13 @@ I used 2 basic cypress tests from this [repo](https://github.com/cypress-io/cypr
 
 To note (able to see most in [demos](demos.md) and in screenshots below):
 
-* Only e2e tests and no component tests in this project (wanting to add it in at some point 🔮)
+* Covers both e2e and component testing
 * Test results are viewable in pipeline console
 * If tests have failed, the build will have a warning on it
 * Screenshot artifacts are generated only if you have a failed test result
 * Video artifacts are generated if you have either a successful or failed test result
 * Test run name is build number (want to change this to something more meaningful! 🤔)
-* Test run results are merged otherwise for each spec file (cy.ts) you'd have a separate test run for each i.e. _1, _2
+* Test run results are merged otherwise for each spec file (cy.ts) you'd have a separate test run for each i.e. <buildnumber>_1, <buildnumber>_2
 
 Packages worthy to note
 
@@ -32,6 +32,7 @@ After cloning the project, ensure you install NPM dependencies.
 
 ```sh
 npm i
+
 ```
 
 Although the focus of this repo is running tests in pipelines, I'll cover how to run the tests locally.
@@ -42,12 +43,14 @@ Run below.
 
 ```sh
 npm run start:e2e
+
 ```
 
 The next command will open Cypress application.
 
 ```sh
 cypress open
+
 ```
 
 ### Generate XML report for specific test 🔃
@@ -56,12 +59,14 @@ Again, ensure you're running locally.
 
 ```sh
 npm run start:e2e
+
 ```
 
 Then the following command.
 
 ```sh
 npx cypress run --reporter junit --spec "cypress/e2e/todo.cy.ts"
+
 ```
 
 ## Project setup
@@ -82,11 +87,12 @@ reporterOptions: {
 },
 screenshotsFolder: "cypress/screenshots",
 videosFolder: "cypress/videos",
+
 ```
 
 ### package.json 📄
 
-I added new scripts [here](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/package.json) that are utilised within the pipeline. Reminder: there are no working component tests in this project but have added the command for full-picture.
+I added new scripts [here](https://github.com/lornasw93/react-vite-cypress-azure-ts/blob/master/package.json) that are utilised within the pipeline.
 
 ```json
 "cy:verify": "cypress verify",
@@ -106,7 +112,7 @@ parameters:
     default: ""
 
 jobs:
-  - job: Cypress_tests
+  - job: CypressTests
     pool:
       vmImage: ${{ parameters.vmImage }}
     steps:
@@ -121,12 +127,12 @@ jobs:
       - script: npm run cy:verify
         displayName: "Verify Cypress is installed"
 
-      # Need to ensure it's running before running tests and generating a report
+      # Need to ensure server is running before running tests and generating a report
       - script: |
           npm install -g wait-on
-          npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:e2e
+          npm run start:e2e & wait-on http://localhost/4173 & npm run cy:run-junit-reporter:e2e && npm run cy:run-junit-reporter:component
         continueOnError: True
-        displayName: "Run e2e tests"
+        displayName: "Run (component, e2e) tests"
 
       # Generate XML reports for each spec file
       - task: PublishTestResults@2
@@ -172,6 +178,7 @@ jobs:
     parameters:
       baseUrl: http://localhost:4173
       vmImage: "ubuntu-latest"
+
 ```
 
 ## End results ✅
