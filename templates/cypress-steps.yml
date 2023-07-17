@@ -40,7 +40,7 @@ jobs:
       # Publish video artifacts when tests have failed
       - task: PublishBuildArtifacts@1
         displayName: "Publish screenshots"
-        condition: succeededOrFailed()
+        condition: failed()
         continueOnError: True
         inputs:
           PathtoPublish: "/home/vsts/work/1/s/cypress/screenshots"
@@ -49,7 +49,7 @@ jobs:
       # Publish video artifacts when tests have succeeded or failed
       - task: PublishBuildArtifacts@1
         displayName: "Publish videos"
-        condition: succeededOrFailed()
+        condition: failed()
         continueOnError: True
         inputs:
           PathtoPublish: "/home/vsts/work/1/s/cypress/videos"
