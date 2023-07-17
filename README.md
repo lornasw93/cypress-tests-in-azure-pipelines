@@ -1,4 +1,4 @@
-# Azure-Cypress-React Dummy Project
+# Run Cypress tests in Azure Pipelines with a React project
 
 The purpose of this dummy project was to run cypress tests within Azure pipelines and better yet, view the test results within the Test Plan section of Azure DevOps so we can view more info (such as error message, screenshot, video) and charts. I wanted to create a minimal project to:
 
