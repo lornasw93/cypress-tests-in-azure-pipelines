@@ -23,10 +23,15 @@ jobs:
       # Need to ensure server is running before running tests and generating a report
       - script: |
           npm install -g wait-on
-          npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:e2e 
-          && npm run cy:run-junit-reporter:component
+          npm run start:e2e 
+          & wait-on ${{parameters.baseUrl}} 
+          & npm run cy:run-junit-reporter:e2e
         continueOnError: True
-        displayName: "Run e2e and component tests"
+        displayName: "Run e2e tests"
+
+      - script: npm run cy:run-junit-reporter:component
+        continueOnError: True
+        displayName: "Run component tests"
 
       # Generate XML reports for each spec file
       - task: PublishTestResults@2
