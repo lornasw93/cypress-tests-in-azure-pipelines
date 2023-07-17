@@ -23,7 +23,10 @@ jobs:
       # Need to ensure server is running before running tests and generating a report
       - script: |
           npm install -g wait-on
-          npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:e2e && npm run cy:run-junit-reporter:component
+          npm run start:e2e 
+          & wait-on ${{parameters.baseUrl}} 
+          & npm run cy:run-junit-reporter:e2e 
+          && npm run cy:run-junit-reporter:component
         continueOnError: True
         displayName: "Run (component, e2e) tests"
 
@@ -40,7 +43,7 @@ jobs:
       # Publish video artifacts when tests have failed
       - task: PublishBuildArtifacts@1
         displayName: "Publish screenshots"
-        condition: failed()
+        condition: succeededOrFailed()
         continueOnError: True
         inputs:
           PathtoPublish: "/home/vsts/work/1/s/cypress/screenshots"
