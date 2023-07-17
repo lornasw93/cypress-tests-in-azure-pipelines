@@ -35,7 +35,7 @@ jobs:
           testResultsFiles: "/home/vsts/work/1/s/cypress/results/result-*.xml"
           testRunTitle: "$(Build.BuildNumber)"
           searchFolder: "$(System.DefaultWorkingDirectory)"
-          mergeTestResults: true
+          mergeTestResults: false
 
       # Publish video artifacts when tests have failed
       - task: PublishBuildArtifacts@1
