@@ -25,13 +25,10 @@ jobs:
           npm install -g wait-on
           npm run start:e2e 
           & wait-on ${{parameters.baseUrl}} 
-          & npm run cy:run-junit-reporter:e2e
+          && npm run cy:run-junit-reporter:e2e
+          && npm run cy:run-junit-reporter:component
         continueOnError: True
-        displayName: "Run e2e tests"
-
-      - script: npm run cy:run-junit-reporter:component
-        continueOnError: True
-        displayName: "Run component tests"
+        displayName: "Run tests"
 
       # Generate XML reports for each spec file
       - task: PublishTestResults@2
