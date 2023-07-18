@@ -65,4 +65,5 @@ jobs:
         condition: succeededOrFailed()
         inputs:
           codeCoverageTool: Cobertura
+          summaryFileLocation: '**/coverage/coverage.xml'
           failIfCoverageEmpty: true
