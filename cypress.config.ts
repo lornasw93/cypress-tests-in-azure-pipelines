@@ -24,8 +24,7 @@ export default defineConfig({
     },
     supportFile: "cypress/support/component.tsx",
     setupNodeEvents(on, config) {
-      require('@cypress/code-coverage/task')(on, config);
-      //codeCoverageTask(on, config);
+      codeCoverageTask(on, config);
 
       return config;
     },
