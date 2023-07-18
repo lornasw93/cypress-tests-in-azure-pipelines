@@ -60,7 +60,7 @@ jobs:
         continueOnError: True
         displayName: "Run code coverage tests"
 
-      - task: PublishCodeCoverageResults@2
+      - task: PublishCodeCoverageResults@1
         displayName: 'Publish code coverage results'
         condition: succeededOrFailed()
         inputs:
