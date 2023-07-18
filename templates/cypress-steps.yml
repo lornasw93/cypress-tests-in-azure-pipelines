@@ -60,6 +60,5 @@ jobs:
         condition: succeededOrFailed()
         inputs:
           codeCoverageTool: Cobertura
-          summaryFileLocation: "/home/vsts/work/1/s/coverage/coverage.xml"
+          summaryFileLocation: $(Agent.TempDirectory)/*/coverage.xml
           failIfCoverageEmpty: true
-          reportDirectory: "/home/vsts/work/1/s/coverage"
