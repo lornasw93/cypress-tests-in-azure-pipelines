@@ -59,7 +59,7 @@ jobs:
         displayName: 'Publish code coverage results'
         condition: succeededOrFailed()
         inputs:
-          codeCoverageTool: Cypress
-          summaryFileLocation: '/home/vsts/work/1/s/coverage/coverage.xml'
-          reportDirectory: /home/vsts/work/1/s/coverage
+          codeCoverageTool: Cobertura
+          summaryFileLocation: "/home/vsts/work/1/s/coverage/coverage.xml"
+          reportDirectory: "/home/vsts/work/1/s/coverage"
           failIfCoverageEmpty: true
