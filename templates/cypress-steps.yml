@@ -48,7 +48,6 @@ jobs:
 
       - task: PublishBuildArtifacts@1
         displayName: 'Publish videos'
-        condition: succeededOrFailed()
         continueOnError: True
         inputs:
           PathtoPublish: '/home/vsts/work/1/s/cypress/videos_$(System.JobAttempt)'
