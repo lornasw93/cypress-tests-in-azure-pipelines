@@ -55,9 +55,14 @@ jobs:
           PathtoPublish: "/home/vsts/work/1/s/cypress/videos"
           ArtifactName: videos
 
+      - script: |
+          npx nyc report --reporter=text-summary
+        continueOnError: True
+        displayName: "Run code coverage tests"
+      
       - task: PublishCodeCoverageResults@2
         displayName: 'Publish code coverage results'
         condition: succeededOrFailed()
         inputs:
-          summaryFileLocation: "$(System.DefaultWorkingDirectory)/coverage/coverage.xml"
+          summaryFileLocation: "/home/vsts/work/1/s/coverage/coverage.xml"
           failIfCoverageEmpty: true
