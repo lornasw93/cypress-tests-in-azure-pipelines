@@ -1,8 +1,8 @@
 parameters:
   - name: baseUrl
-    default: ""
+    default: ''
   - name: vmImage
-    default: ""
+    default: ''
 
 jobs:
   - job: CypressTests
@@ -11,78 +11,45 @@ jobs:
     steps:
       - task: NodeTool@0
         inputs:
-          versionSpec: "18.x"
-        displayName: "Install Node.js"
+          versionSpec: '18.x'
+        displayName: 'Install Node.js'
 
       - script: npm ci
-        displayName: "Install NPM dependencies"
+        displayName: 'Install NPM dependencies'
 
       - script: npm run cy:verify
-        displayName: "Verify Cypress is installed"
+        displayName: 'Verify Cypress is installed'
 
       # Need to ensure server is running before running tests and generating a report
       - script: |
           npm install -g wait-on
           npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:e2e && npm run cy:run-junit-reporter:component
         continueOnError: True
-        displayName: "Run (component, e2e) tests"
+        displayName: 'Run (component, e2e) tests'
      
       # screenshot, video
       # Generate XML reports for each spec file
       - task: PublishTestResults@2
-        displayName: "Publish test results"
+        displayName: 'Publish test results'
         inputs:
-          testResultsFormat: "JUnit"
-          testResultsFiles: "/home/vsts/work/1/s/cypress/results/result-*.xml"
-          testRunTitle: "Cypress Tests"
-          searchFolder: "$(System.DefaultWorkingDirectory)"
+          testResultsFormat: 'JUnit'
+          testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
+          testRunTitle: 'Cypress Tests'
+          searchFolder: '$(System.DefaultWorkingDirectory)'
           mergeTestResults: true
 
-
-  - job: PublishFailedTestResults
-    dependsOn: CypressTests
-    condition: failed()
-    steps: 
-      # Publish video artifacts when tests have failed
       - task: PublishBuildArtifacts@1
-        displayName: "Publish screenshots"
+        displayName: 'Publish screenshots'
+        condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: "/home/vsts/work/1/s/cypress/screenshots"
+          PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots'
           ArtifactName: screenshots
 
-      # Publish video artifacts when tests have succeeded or failed
       - task: PublishBuildArtifacts@1
-        displayName: "Publish videos"
+        displayName: 'Publish videos'
+        condition: succeededOrFailed()
         continueOnError: True
         inputs:
-          PathtoPublish: "/home/vsts/work/1/s/cypress/videos"
+          PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
           ArtifactName: videos
-
-  - job: PublishSuccessfulTestResults
-    dependsOn: CypressTests
-    condition: succeeded()
-    steps: 
-      # video
-      # Publish video artifacts when tests have succeeded or failed
-      - task: PublishBuildArtifacts@1
-        displayName: "Publish videos"
-        continueOnError: True
-        inputs:
-          PathtoPublish: "/home/vsts/work/1/s/cypress/videos"
-          ArtifactName: videos
-
-
-# - script: |
-#     npx nyc report --reporter=text-summary --report-dir=/home/vsts/work/1/s/coverage
-#   continueOnError: True
-#   displayName: "Run code coverage tests"
-
-# - task: PublishCodeCoverageResults@1
-#   displayName: 'Publish code coverage results'
-#   condition: succeededOrFailed()
-#   inputs:
-#     codeCoverageTool: Cobertura
-#     summaryFileLocation: '/home/vsts/work/1/s/coverage/coverage.xml'
-#     failIfCoverageEmpty: true
-
