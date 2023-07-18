@@ -59,7 +59,7 @@ jobs:
           PathtoPublish: "/home/vsts/work/1/s/cypress/videos"
           ArtifactName: videos
 
-  - job: PublishFailedTestResults
+  - job: PublishSuccessfulTestResults
     dependsOn: CypressTests
     condition: succeeded()
     steps: 
