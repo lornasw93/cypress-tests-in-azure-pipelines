@@ -43,7 +43,7 @@ jobs:
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots'
+          PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots_$(System.JobAttempt)'
           ArtifactName: screenshots
 
       - task: PublishBuildArtifacts@1
@@ -51,5 +51,5 @@ jobs:
         condition: succeededOrFailed()
         continueOnError: True
         inputs:
-          PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
+          PathtoPublish: '/home/vsts/work/1/s/cypress/videos_$(System.JobAttempt)'
           ArtifactName: videos
