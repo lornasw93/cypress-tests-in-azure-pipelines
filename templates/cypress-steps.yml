@@ -36,7 +36,7 @@ jobs:
         displayName: 'Publish test results'
         inputs:
           testResultsFormat: 'JUnit'
-          testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-e2e-*.xml'
+          testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
           testRunTitle: 'Cypress Tests'
           searchFolder: '$(System.DefaultWorkingDirectory)'
           mergeTestResults: true
@@ -72,7 +72,7 @@ jobs:
         displayName: 'Publish test results'
         inputs:
           testResultsFormat: 'JUnit'
-          testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-component-*.xml'
+          testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
           testRunTitle: 'Cypress Tests'
           searchFolder: '$(System.DefaultWorkingDirectory)'
           mergeTestResults: true
