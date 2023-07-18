@@ -55,11 +55,9 @@ jobs:
           PathtoPublish: "/home/vsts/work/1/s/cypress/videos"
           ArtifactName: videos
 
-      - task: PublishCodeCoverageResults@1
+      - task: PublishCodeCoverageResults@2
         displayName: 'Publish code coverage results'
         condition: succeededOrFailed()
         inputs:
-          codeCoverageTool: Cobertura
           summaryFileLocation: "/home/vsts/work/1/s/coverage/coverage.xml"
-          reportDirectory: "/home/vsts/work/1/s/coverage"
           failIfCoverageEmpty: true
