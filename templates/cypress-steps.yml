@@ -21,6 +21,7 @@ jobs:
         displayName: "Verify Cypress is installed"
 
   - job: CypressE2ETests
+    dependsOn: CypressPreqrequisites
     steps:
       # Need to ensure server is running before running tests and generating a report
       - script: |
@@ -58,6 +59,7 @@ jobs:
           ArtifactName: videos
 
   - job: CypressComponentTests
+    dependsOn: CypressPreqrequisites
     steps:
       # Need to ensure server is running before running tests and generating a report
       - script: |
