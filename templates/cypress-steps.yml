@@ -36,7 +36,7 @@ jobs:
         inputs:
           testResultsFormat: "JUnit"
           testResultsFiles: "/home/vsts/work/1/s/cypress/results/e2e/result-*.xml"
-          testRunTitle: "$(Build.BuildNumber)"
+          testRunTitle: "$(Build.BuildNumber)_CypressE2ETests"
           searchFolder: "$(System.DefaultWorkingDirectory)"
           mergeTestResults: true
 
@@ -63,6 +63,7 @@ jobs:
     steps:
       # Need to ensure server is running before running tests and generating a report
       - script: |
+          npm install -g wait-on
           npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:component
         continueOnError: True
         displayName: "Run component tests"
