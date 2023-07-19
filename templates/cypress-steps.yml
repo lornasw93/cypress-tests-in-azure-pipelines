@@ -25,7 +25,7 @@ jobs:
 
       - script: |
           npm install -g wait-on
-          npm run start:e2e & wait-on ${{parameters.baseUrl}} & cypress run --reporter junit
+          npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:e2e
         continueOnError: False
         displayName: 'Run tests'
 
@@ -43,7 +43,7 @@ jobs:
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: '/home/vsts/work/1/s/cypress/results/screenshots'
+          PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots'
           ArtifactName: screenshots
 
       - task: PublishBuildArtifacts@1
@@ -51,5 +51,5 @@ jobs:
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: '/home/vsts/work/1/s/cypress/results/videos'
+          PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
           ArtifactName: videos

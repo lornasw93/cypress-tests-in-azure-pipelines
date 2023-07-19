@@ -12,7 +12,7 @@
     "test:component": "cypress run -q --component",
     "test:unit": "vitest run --coverage",
     "cy:verify": "cypress verify",
-    "cy:run-junit-reporter:e2e": "cypress run --reporter junit --config videosFolder=cypress/results/e2e/videos screenshotsFolder=cypress/results/e2e/screenshots"
+    "cy:run-junit-reporter:e2e": "cypress run --reporter junit"
   },
   "dependencies": {
     "@cypress/code-coverage": "^3.10.8",
