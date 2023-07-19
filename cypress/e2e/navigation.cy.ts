@@ -7,7 +7,7 @@ describe("Navigation", () => {
     cy.get(".dropdown-menu").contains("Navigation").click();
   });
 
-  it("cy.go() - go back or forward in the browser's history", () => {
+  it("E2E - cy.go() - go back or forward in the browser's history", () => {
     cy.location("pathname").should("include", "navigation");
 
     cy.go("back");
@@ -25,12 +25,12 @@ describe("Navigation", () => {
     cy.location("pathname").should("include", "navigation");
   });
 
-  it("cy.reload() - reload the page", () => {
+  it("E2E - cy.reload() - reload the page", () => {
     cy.reload();
     cy.reload(true);
   });
 
-  it("cy.visit() - visit a remote url", () => {
+  it("E2E - cy.visit() - visit a remote url", () => {
     cy.visit("https://example.cypress.io/commands/navigation", {
       timeout: 50000,
       onBeforeLoad(contentWindow) {

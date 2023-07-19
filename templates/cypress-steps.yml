@@ -20,17 +20,11 @@ jobs:
       - script: npm run cy:verify
         displayName: 'Verify Cypress is installed'
 
-  - job: CypressE2ETests
-    dependsOn: CypressPrerequisites
-    condition: succeeded()
-    pool: 
-      vmImage: ${{ parameters.vmImage }}
-    steps: 
       - script: |
           npm install -g wait-on
-          npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:e2e
+          npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:e2e && npm run cy:run-junit-reporter:component
         continueOnError: True
-        displayName: 'Run e2e tests'
+        displayName: 'Run e2e & component tests'
       
       - task: PublishTestResults@2
         displayName: 'Publish test results'
@@ -46,49 +40,13 @@ jobs:
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots/e2e'
+          PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots'
           ArtifactName: screenshots
 
       - task: PublishBuildArtifacts@1
         displayName: 'Publish videos'
         continueOnError: True
         inputs:
-          PathtoPublish: '/home/vsts/work/1/s/cypress/videos/e2e'
-          ArtifactName: videos
-
-  - job: CypressComponentTests
-    dependsOn: CypressPrerequisites
-    condition: succeeded()
-    pool: 
-      vmImage: ${{ parameters.vmImage }}
-    steps: 
-      - script: |
-          npm install -g wait-on
-          npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:component
-        continueOnError: True
-        displayName: 'Run component tests'
-      
-      - task: PublishTestResults@2
-        displayName: 'Publish test results'
-        inputs:
-          testResultsFormat: 'JUnit'
-          testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
-          testRunTitle: 'Cypress Tests'
-          searchFolder: '$(System.DefaultWorkingDirectory)'
-          mergeTestResults: true
-
-      - task: PublishBuildArtifacts@1
-        displayName: 'Publish screenshots'
-        condition: failed()
-        continueOnError: True
-        inputs:
-          PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots/component'
-          ArtifactName: screenshots
-
-      - task: PublishBuildArtifacts@1
-        displayName: 'Publish videos'
-        continueOnError: True
-        inputs:
-          PathtoPublish: '/home/vsts/work/1/s/cypress/videos/component'
+          PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
           ArtifactName: videos
 
