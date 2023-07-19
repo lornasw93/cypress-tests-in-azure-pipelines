@@ -53,7 +53,7 @@ jobs:
         continueOnError: True
         inputs:
           PathtoPublish: '/home/vsts/work/1/s/cypress/results/e2e/videos'
-          ArtifactName: videos
+          ArtifactName: e2eVideos
 
       - script: |
           wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:component
@@ -83,5 +83,5 @@ jobs:
         continueOnError: True
         inputs:
           PathtoPublish: '$(ComponentFolderPath)/videos'
-          ArtifactName: videos
+          ArtifactName: componentVideos
 
