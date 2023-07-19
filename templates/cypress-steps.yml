@@ -8,6 +8,11 @@ jobs:
   - job: CypressPrerequisites
     pool:
       vmImage: ${{ parameters.vmImage }}
+    variables:
+      - name: E2EFolderPath
+        value: '/home/vsts/work/1/s/cypress/results/e2e'
+      - name: ComponentFolderPath
+        value: '/home/vsts/work/1/s/cypress/results/component'
     steps:
       - task: NodeTool@0
         inputs:
@@ -30,7 +35,7 @@ jobs:
         displayName: 'Publish test results'
         inputs:
           testResultsFormat: 'JUnit'
-          testResultsFiles: '/home/vsts/work/1/s/cypress/results/e2e/result-*.xml'
+          testResultsFiles: '$(E2EFolderPath)/result-*.xml'
           testRunTitle: 'Cypress tests'
           searchFolder: '$(System.DefaultWorkingDirectory)'
           mergeTestResults: true
@@ -40,7 +45,7 @@ jobs:
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots/e2e'
+          PathtoPublish: '$(E2EFolderPath)/screenshots'
           ArtifactName: screenshots
 
       - task: PublishBuildArtifacts@1
@@ -48,7 +53,7 @@ jobs:
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: '/home/vsts/work/1/s/cypress/videos/e2e'
+          PathtoPublish: '$(E2EFolderPath)/videos'
           ArtifactName: videos
 
 
@@ -61,7 +66,7 @@ jobs:
         displayName: 'Publish test results'
         inputs:
           testResultsFormat: 'JUnit'
-          testResultsFiles: '/home/vsts/work/1/s/cypress/results/component/result-*.xml'
+          testResultsFiles: '$(ComponentFolderPath)/result-*.xml'
           testRunTitle: 'Cypress tests'
           searchFolder: '$(System.DefaultWorkingDirectory)'
           mergeTestResults: true
@@ -71,7 +76,7 @@ jobs:
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots/component'
+          PathtoPublish: '$(ComponentFolderPath)/screenshots'
           ArtifactName: screenshots
 
       - task: PublishBuildArtifacts@1
@@ -79,6 +84,6 @@ jobs:
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: '/home/vsts/work/1/s/cypress/videos/component'
+          PathtoPublish: '$(ComponentFolderPath)/videos'
           ArtifactName: videos
 
