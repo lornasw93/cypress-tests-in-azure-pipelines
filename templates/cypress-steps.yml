@@ -33,7 +33,7 @@ jobs:
         displayName: 'Publish test results'
         inputs:
           testResultsFormat: 'JUnit'
-          testResultsFiles: '$(E2EFolderPath)/result-*.xml'
+          testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
           testRunTitle: 'Cypress tests'
           searchFolder: '$(System.DefaultWorkingDirectory)'
           mergeTestResults: true
