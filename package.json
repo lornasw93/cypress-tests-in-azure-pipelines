@@ -12,8 +12,8 @@
     "test:component": "cypress run -q --component",
     "test:unit": "vitest run --coverage",
     "cy:verify": "cypress verify",
-    "cy:run-junit-reporter:component": "cypress run -q --component --reporter junit --reporter-options 'mochaFile=cypress/results/component/results-[hash].xml' --config videosFolder=cypress/results/component/videos --config screenshotsFolder=cypress/results/component/screenshots",
-    "cy:run-junit-reporter:e2e": "cypress run --reporter junit --reporter-options 'mochaFile=cypress/results/e2e/results-[hash].xml' --config videosFolder=cypress/results/e2e/videos --config screenshotsFolder=cypress/results/e2e/screenshots"
+    "cy:run-junit-reporter:component": "cypress run -q --component --reporter junit --reporter-options 'mochaFile=cypress/results/component/result-[hash].xml' --config videosFolder=cypress/results/component/videos --config screenshotsFolder=cypress/results/component/screenshots",
+    "cy:run-junit-reporter:e2e": "cypress run --reporter junit --reporter-options 'mochaFile=cypress/results/e2e/result-[hash].xml' --config videosFolder=cypress/results/e2e/videos --config screenshotsFolder=cypress/results/e2e/screenshots"
   },
   "dependencies": {
     "@cypress/code-coverage": "^3.10.8",

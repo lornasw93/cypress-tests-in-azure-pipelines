@@ -1,0 +1,56 @@
+parameters:
+  - name: baseUrl
+    default: ''
+  - name: vmImage
+    default: ''
+
+jobs:
+  - job: CypressPrerequisites
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    variables:
+      - name: E2EFolderPath
+        value: '/home/vsts/work/1/s/cypress/results/e2e'
+      - name: ComponentFolderPath
+        value: '/home/vsts/work/1/s/cypress/results/component'
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '18.x'
+        displayName: 'Install Node.js'
+
+      - script: npm ci
+        displayName: 'Install NPM dependencies'
+
+      - script: npm run cy:verify
+        displayName: 'Verify Cypress is installed'
+
+      - script: |
+          npm install -g wait-on
+          npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:e2e
+        continueOnError: False
+        displayName: 'Run tests'
+
+      - task: PublishTestResults@2
+        displayName: 'Publish test results'
+        inputs:
+          testResultsFormat: 'JUnit'
+          testResultsFiles: '$(E2EFolderPath)/result-*.xml'
+          testRunTitle: 'Cypress tests'
+          mergeTestResults: true
+
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish screenshots'
+        condition: failed()
+        continueOnError: True
+        inputs:
+          PathtoPublish: '$(E2EFolderPath)/screenshots'
+          ArtifactName: screenshots
+
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish videos'
+        condition: failed()
+        continueOnError: True
+        inputs:
+          PathtoPublish: '$(E2EFolderPath)/videos'
+          ArtifactName: videos

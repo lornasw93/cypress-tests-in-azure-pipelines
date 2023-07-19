@@ -8,11 +8,11 @@ jobs:
   - job: CypressPrerequisites
     pool:
       vmImage: ${{ parameters.vmImage }}
-    variables:
-      - name: E2EFolderPath
-        value: '/home/vsts/work/1/s/cypress/results/e2e'
-      - name: ComponentFolderPath
-        value: '/home/vsts/work/1/s/cypress/results/component'
+    # variables:
+    #   - name: E2EFolderPath
+    #     value: '/home/vsts/work/1/s/cypress/results/e2e'
+    #   - name: ComponentFolderPath
+    #     value: '/home/vsts/work/1/s/cypress/results/component'
     steps:
       - task: NodeTool@0
         inputs:
@@ -35,7 +35,7 @@ jobs:
         displayName: 'Publish test results'
         inputs:
           testResultsFormat: 'JUnit'
-          testResultsFiles: '$(E2EFolderPath)/result-*.xml'
+          testResultsFiles: '/home/vsts/work/1/s/cypress/results/e2e/result-*.xml'
           testRunTitle: 'Cypress tests'
           mergeTestResults: true
 
@@ -44,7 +44,7 @@ jobs:
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: '$(E2EFolderPath)/screenshots'
+          PathtoPublish: '/home/vsts/work/1/s/cypress/results/e2e/screenshots'
           ArtifactName: screenshots
 
       - task: PublishBuildArtifacts@1
@@ -52,7 +52,7 @@ jobs:
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: '$(E2EFolderPath)/videos'
+          PathtoPublish: '/home/vsts/work/1/s/cypress/results/e2e/videos'
           ArtifactName: videos
 
       # - script: |
