@@ -4,7 +4,8 @@ dist/
 
 cypress/videos
 cypress/screenshots
-cypress/results
+cypress/results/e2e/*
+cypress/results/component/*
 
 .nyc_output/*
 .reports/
