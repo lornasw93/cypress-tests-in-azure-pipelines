@@ -50,3 +50,13 @@ jobs:
         inputs:
           PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
           ArtifactName: videos
+
+
+
+
+  # - job: CypressE2ETests
+  #   steps:
+
+
+  # - job: CypressComponentTests
+  #   steps:

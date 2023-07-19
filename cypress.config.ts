@@ -10,7 +10,7 @@ export default defineConfig({
 
   e2e: {
     defaultCommandTimeout: 6000, // set command timeout to 6secs
-    baseUrl: "http://localhost:4173",
+    baseUrl: "http://localhost:4173",    
   },
 
   component: {
@@ -25,6 +25,9 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       codeCoverageTask(on, config);
 
+
+      
+
       return config;
     },
   },
@@ -37,5 +40,5 @@ export default defineConfig({
     embeddedScreenshots: true,
     trashAssetsBeforeRuns: false,
     videoUploadOnPasses: false,
-  }
+  },
 });

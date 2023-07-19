@@ -12,8 +12,8 @@
     "test:component": "cypress run -q --component",
     "test:unit": "vitest run --coverage",
     "cy:verify": "cypress verify",
-    "cy:run-junit-reporter:component": "cypress run -q --component --reporter junit",
-    "cy:run-junit-reporter:e2e": "cypress run --reporter junit"
+    "cy:run-junit-reporter:component": "cypress run -q --component --reporter junit --config videosFolder=cypress/videos/component",
+    "cy:run-junit-reporter:e2e": "cypress run --reporter junit --config videosFolder=cypress/videos/e2e"
   },
   "dependencies": {
     "@cypress/code-coverage": "^3.10.8",
