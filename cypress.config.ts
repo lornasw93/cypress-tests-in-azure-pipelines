@@ -36,5 +36,6 @@ export default defineConfig({
     attachments: true,
     trashAssetsBeforeRuns: false,
   },
-  screenshotsFolder: "cypress/results/e2e/screenshots",
+  screenshotsFolder: "cypress/results/screenshots",
+  videosFolder: "cypress/results/videos",
 });
