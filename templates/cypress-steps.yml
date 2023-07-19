@@ -52,7 +52,7 @@ jobs:
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: '/home/vsts/work/1/s/cypress/results/e2e/videos'
+          PathtoPublish: '$(E2EFolderPath)'
           ArtifactName: e2eVideos
 
       - script: |
@@ -82,6 +82,6 @@ jobs:
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: '$(ComponentFolderPath)/videos'
+          PathtoPublish: '$(ComponentFolderPath)'
           ArtifactName: componentVideos
 
