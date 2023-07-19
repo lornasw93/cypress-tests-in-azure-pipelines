@@ -34,7 +34,7 @@ jobs:
         inputs:
           testResultsFormat: 'JUnit'
           testResultsFiles: '/home/vsts/work/1/s/cypress/results/result-*.xml'
-          testRunTitle: 'Cypress tests'
+          testRunTitle: 'Cypress tests_$(Build.BuildNumber)'
           searchFolder: '$(System.DefaultWorkingDirectory)'
           mergeTestResults: true
 
@@ -53,3 +53,4 @@ jobs:
         inputs:
           PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
           ArtifactName: videos
+
