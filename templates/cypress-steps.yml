@@ -23,12 +23,11 @@ jobs:
 
   - job: CypressE2ETests
     dependsOn: CypressPrerequisites
-    condition: succeeded()
     steps:
       - script: |
           npm install -g wait-on
           npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:e2e
-        continueOnError: True
+        continueOnError: False
         displayName: 'Run tests'
 
       - task: PublishTestResults@2
@@ -59,12 +58,11 @@ jobs:
 
   - job: CypressComponentTests
     dependsOn: CypressPrerequisites
-    condition: succeeded()
     steps:
       - script: |
           npm install -g wait-on
           npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:component
-        continueOnError: True
+        continueOnError: False
         displayName: 'Run tests'
 
       - task: PublishTestResults@2
