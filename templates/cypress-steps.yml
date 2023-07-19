@@ -20,6 +20,9 @@ jobs:
       - script: npm run cy:verify
         displayName: 'Verify Cypress is installed'
 
+      - script: npm install -g cross-env
+        displayName: 'Install cross-env'
+
 
   - job: CypressE2ETests
     dependsOn: CypressPrerequisites
