@@ -69,19 +69,19 @@ jobs:
           searchFolder: '$(System.DefaultWorkingDirectory)'
           mergeTestResults: true
 
-      - task: PublishBuildArtifacts@1
-        displayName: 'Publish screenshots'
-        condition: failed()
-        continueOnError: True
-        inputs:
-          PathtoPublish: '$(ComponentFolderPath)/screenshots'
-          ArtifactName: screenshots
-
       # - task: PublishBuildArtifacts@1
-      #   displayName: 'Publish videos'
+      #   displayName: 'Publish screenshots'
       #   condition: failed()
       #   continueOnError: True
       #   inputs:
-      #     PathtoPublish: '$(ComponentFolderPath)/videos'
-      #     ArtifactName: videos
+      #     PathtoPublish: '$(ComponentFolderPath)/screenshots'
+      #     ArtifactName: screenshots
+
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish videos'
+        condition: failed()
+        continueOnError: True
+        inputs:
+          PathtoPublish: '$(ComponentFolderPath)/videos'
+          ArtifactName: videos
 
