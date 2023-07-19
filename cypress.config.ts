@@ -7,11 +7,11 @@ export default defineConfig({
       exclude: "cypress/**/*.*",
     },
   },
- 
+
   e2e: {
     defaultCommandTimeout: 6000, // set command timeout to 6secs
     baseUrl: "http://localhost:4173",
-    video: true
+    video: true,
   },
 
   component: {
@@ -37,7 +37,6 @@ export default defineConfig({
     attachments: true,
     embeddedScreenshots: true,
     trashAssetsBeforeRuns: false,
-  },
-  screenshotsFolder: "cypress/screenshots",
-  videosFolder: "cypress/videos",
+    videoUploadOnPasses: false,
+  }
 });
