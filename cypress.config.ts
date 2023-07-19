@@ -34,7 +34,6 @@ export default defineConfig({
     mochaFile: "cypress/results/result-[hash].xml",
     toConsole: true,
     attachments: true,
-    trashAssetsBeforeRuns: false,
   },
   screenshotsFolder: "cypress/screenshots",
   videosFolder: "cypress/videos",

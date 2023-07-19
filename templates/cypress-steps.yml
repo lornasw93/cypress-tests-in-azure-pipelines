@@ -8,9 +8,6 @@ jobs:
   - job: CypressTests
     pool:
       vmImage: ${{ parameters.vmImage }}
-    variables:
-      - name: E2EFolderPath
-        value: '/home/vsts/work/1/s/cypress/results/e2e'
     steps:
       - task: NodeTool@0
         inputs:
