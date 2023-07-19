@@ -39,13 +39,13 @@ jobs:
           testRunTitle: 'Cypress tests'
           mergeTestResults: true
 
-      - task: PublishBuildArtifacts@1
-        displayName: 'Publish screenshots'
-        condition: failed()
-        continueOnError: True
-        inputs:
-          PathtoPublish: '/home/vsts/work/1/s/cypress/results/e2e/screenshots'
-          ArtifactName: screenshots
+      # - task: PublishBuildArtifacts@1
+      #   displayName: 'Publish screenshots'
+      #   condition: failed()
+      #   continueOnError: True
+      #   inputs:
+      #     PathtoPublish: '/home/vsts/work/1/s/cypress/results/e2e/screenshots'
+      #     ArtifactName: screenshots
 
       - task: PublishBuildArtifacts@1
         displayName: 'Publish videos'
