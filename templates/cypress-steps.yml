@@ -48,7 +48,7 @@ jobs:
       
 
   - job: PublishCypressResults
-    dependsOn: CypressE2ETests && CypressComponentTests
+    dependsOn: CypressE2ETests & CypressComponentTests
     condition: succeededOrFailed()
     pool:
       vmImage: ${{ parameters.vmImage }}
