@@ -2,10 +2,6 @@ node_modules/
 coverage/*
 dist/
 
-cypress/videos/e2e/*
-cypress/videos/component/*
-cypress/screenshots/e2e/*
-cypress/screenshots/component/*
 cypress/results/e2e/*
 cypress/results/component/*
 
