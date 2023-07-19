@@ -20,10 +20,6 @@ jobs:
       - script: npm run cy:verify
         displayName: 'Verify Cypress is installed'
 
-
-  - job: CypressE2ETests
-    dependsOn: CypressPrerequisites
-    steps:
       - script: |
           npm install -g wait-on
           npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:e2e
@@ -56,12 +52,8 @@ jobs:
           ArtifactName: videos
 
 
-  - job: CypressComponentTests
-    dependsOn: CypressPrerequisites
-    steps:
       - script: |
-          npm install -g wait-on
-          npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:component
+          wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:component
         continueOnError: False
         displayName: 'Run tests'
 
