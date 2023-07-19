@@ -22,7 +22,7 @@ jobs:
 
       - script: |
           npm install -g wait-on
-          npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:e2e
+          npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:e2e && npm run cy:run-junit-reporter:component
         continueOnError: True
         displayName: 'Run e2e & component tests'
       
@@ -49,22 +49,3 @@ jobs:
         inputs:
           PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
           ArtifactName: videos
-
-
-
-
-      - script: |
-          npx nyc report --reporter=text-summary --report-dir=/home/vsts/work/1/s/coverage
-        continueOnError: True
-        displayName: "Run code coverage tests"
-
-      - task: PublishCodeCoverageResults@1
-        displayName: 'Publish code coverage results'
-        condition: succeededOrFailed()
-        inputs:
-          codeCoverageTool: Cobertura
-          summaryFileLocation: '/home/vsts/work/1/s/coverage/coverage.xml'
-          failIfCoverageEmpty: true
-
-
-
