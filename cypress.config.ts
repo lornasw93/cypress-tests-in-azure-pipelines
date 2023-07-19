@@ -16,6 +16,7 @@ export default defineConfig({
   component: {
     viewportHeight: 800,
     viewportWidth: 1280,
+    video: false,
     devServer: {
       framework: "react",
       bundler: "vite",
