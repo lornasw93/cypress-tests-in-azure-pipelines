@@ -33,16 +33,17 @@ jobs:
         displayName: 'Publish test results'
         inputs:
           testResultsFormat: 'JUnit'
-          testResultsFiles: '$(E2EFolderPath)/result-*.xml'
+          testResultsFiles: '/home/vsts/work/1/s/cypress/results/e2e/result-*.xml'
           testRunTitle: 'Cypress tests'
           mergeTestResults: true
+          searchFolder: '/home/vsts/work/1/s/cypress/results/e2e'
 
       - task: PublishBuildArtifacts@1
         displayName: 'Publish screenshots'
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: '$(E2EFolderPath)/screenshots'
+          PathtoPublish: '/home/vsts/work/1/s/cypress/results/e2e/screenshots'
           ArtifactName: screenshots
 
       - task: PublishBuildArtifacts@1
@@ -50,5 +51,5 @@ jobs:
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: $(E2EFolderPath)/videos
+          PathtoPublish: '/home/vsts/work/1/s/cypress/results/e2e/videos'
           ArtifactName: videos
