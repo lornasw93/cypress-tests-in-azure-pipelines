@@ -20,9 +20,6 @@ jobs:
       - script: npm run cy:verify
         displayName: 'Verify Cypress is installed'
 
-      - script: npm install -g cross-env
-        displayName: 'Install cross-env'
-
 
   - job: CypressE2ETests
     dependsOn: CypressPrerequisites
@@ -32,6 +29,7 @@ jobs:
     steps:
       - script: |
           npm install -g wait-on
+          npm install -g cross-env
           npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:e2e
         continueOnError: True
         displayName: 'Run e2e tests'
@@ -70,6 +68,7 @@ jobs:
     steps:
       - script: |
           npm install -g wait-on
+          npm install -g cross-env
           npm run start:e2e & wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:component
         continueOnError: True
         displayName: 'Run component tests'
