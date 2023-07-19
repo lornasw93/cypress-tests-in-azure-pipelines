@@ -50,5 +50,5 @@ jobs:
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: $(E2EFolderPath)
+          PathtoPublish: $(E2EFolderPath)/videos
           ArtifactName: videos
