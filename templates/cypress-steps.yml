@@ -56,7 +56,6 @@ jobs:
           PathtoPublish: '$(E2EFolderPath)/videos'
           ArtifactName: videos
 
-
       - script: |
           wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:component
         continueOnError: False

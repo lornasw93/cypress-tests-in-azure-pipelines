@@ -34,7 +34,7 @@ export default defineConfig({
     //mochaFile: "cypress/results/result-[hash].xml",
     toConsole: true,
     attachments: true,
+    embeddedScreenshots: true,
     trashAssetsBeforeRuns: false,
-    videoUploadOnPasses: false,
   },
 });
