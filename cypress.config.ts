@@ -11,13 +11,11 @@ export default defineConfig({
   e2e: {
     defaultCommandTimeout: 6000, // set command timeout to 6secs
     baseUrl: "http://localhost:4173",
-    video: true,
   },
 
   component: {
     viewportHeight: 800,
     viewportWidth: 1280,
-    video: false,
     devServer: {
       framework: "react",
       bundler: "vite",
