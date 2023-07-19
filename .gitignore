@@ -6,5 +6,5 @@ cypress/videos
 cypress/screenshots
 cypress/results
 
-.nyc_output/
+.nyc_output/*
 .reports/

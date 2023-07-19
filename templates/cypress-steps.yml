@@ -50,6 +50,9 @@ jobs:
           PathtoPublish: '/home/vsts/work/1/s/cypress/videos'
           ArtifactName: videos
 
+
+
+
       - script: |
           npx nyc report --reporter=text-summary --report-dir=/home/vsts/work/1/s/coverage
         continueOnError: True
@@ -62,4 +65,6 @@ jobs:
           codeCoverageTool: Cobertura
           summaryFileLocation: '/home/vsts/work/1/s/coverage/coverage.xml'
           failIfCoverageEmpty: true
+
+
 
