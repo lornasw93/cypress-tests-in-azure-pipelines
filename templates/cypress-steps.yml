@@ -11,8 +11,6 @@ jobs:
     variables:
       - name: E2EFolderPath
         value: '/home/vsts/work/1/s/cypress/results/e2e'
-      - name: ComponentFolderPath
-        value: '/home/vsts/work/1/s/cypress/results/component'
     steps:
       - task: NodeTool@0
         inputs:
@@ -35,53 +33,22 @@ jobs:
         displayName: 'Publish test results'
         inputs:
           testResultsFormat: 'JUnit'
-          testResultsFiles: '/home/vsts/work/1/s/cypress/results/e2e/result-*.xml'
+          testResultsFiles: '$(E2EFolderPath)/result-*.xml'
           testRunTitle: 'Cypress tests'
           mergeTestResults: true
 
-      # - task: PublishBuildArtifacts@1
-      #   displayName: 'Publish screenshots'
-      #   condition: failed()
-      #   continueOnError: True
-      #   inputs:
-      #     PathtoPublish: '/home/vsts/work/1/s/cypress/results/e2e/screenshots'
-      #     ArtifactName: screenshots
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish screenshots'
+        condition: failed()
+        continueOnError: True
+        inputs:
+          PathtoPublish: '$(E2EFolderPath)/screenshots'
+          ArtifactName: screenshots
 
       - task: PublishBuildArtifacts@1
         displayName: 'Publish videos'
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: '$(E2EFolderPath)'
-          ArtifactName: e2eVideos
-
-      - script: |
-          wait-on ${{parameters.baseUrl}} & npm run cy:run-junit-reporter:component
-        continueOnError: False
-        displayName: 'Run tests'
-
-      - task: PublishTestResults@2
-        displayName: 'Publish test results'
-        inputs:
-          testResultsFormat: 'JUnit'
-          testResultsFiles: '$(ComponentFolderPath)/result-*.xml'
-          testRunTitle: 'Cypress tests'
-          searchFolder: '$(System.DefaultWorkingDirectory)'
-          mergeTestResults: true
-
-      # - task: PublishBuildArtifacts@1
-      #   displayName: 'Publish screenshots'
-      #   condition: failed()
-      #   continueOnError: True
-      #   inputs:
-      #     PathtoPublish: '$(ComponentFolderPath)/screenshots'
-      #     ArtifactName: screenshots
-
-      - task: PublishBuildArtifacts@1
-        displayName: 'Publish videos'
-        condition: failed()
-        continueOnError: True
-        inputs:
-          PathtoPublish: '$(ComponentFolderPath)'
-          ArtifactName: componentVideos
-
+          PathtoPublish: $(E2EFolderPath)
+          ArtifactName: videos
