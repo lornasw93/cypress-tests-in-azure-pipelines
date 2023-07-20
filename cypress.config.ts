@@ -35,4 +35,5 @@ export default defineConfig({
     toConsole: true,
     attachments: true,
   },
+  trashAssetsBeforeRuns: false
 });
