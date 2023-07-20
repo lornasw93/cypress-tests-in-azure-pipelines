@@ -22,7 +22,7 @@ jobs:
 
       - script: |
           npm install -g wait-on
-          npm run start:e2e & wait-on ${{parameters.baseUrl}} & cypress run --reporter junit --config videosFolder=cypress/e2e/videos, screenshotsFolder=cypress/e2e/screenshots
+          npm run start:e2e & wait-on ${{parameters.baseUrl}} & cypress run --reporter junit --config videosFolder=cypress/videos/e2e, screenshotsFolder=cypress/screenshots/e2e
         continueOnError: False
         displayName: 'Run tests'
 
@@ -40,7 +40,7 @@ jobs:
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: '/home/vsts/work/1/s/cypress/e2e/screenshots'
+          PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots/e2e'
           ArtifactName: screenshots
 
       - task: PublishBuildArtifacts@1
@@ -48,13 +48,13 @@ jobs:
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: '/home/vsts/work/1/s/cypress/e2e/videos'
+          PathtoPublish: '/home/vsts/work/1/s/cypress/videos/e2e'
           ArtifactName: videos
 
 
       - script: |
           npm install -g wait-on
-          npm run start:e2e & wait-on ${{parameters.baseUrl}} & cypress run -q --component --reporter junit --config videosFolder=cypress/component/videos, screenshotsFolder=cypress/component/screenshots
+          npm run start:e2e & wait-on ${{parameters.baseUrl}} & cypress run -q --component --reporter junit --config videosFolder=cypress/videos/component, screenshotsFolder=cypress/screenshots/component
         continueOnError: False
         displayName: 'Run tests'
 
@@ -72,7 +72,7 @@ jobs:
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: '/home/vsts/work/1/s/cypress/component/screenshots'
+          PathtoPublish: '/home/vsts/work/1/s/cypress/screenshots/component'
           ArtifactName: screenshots
 
       - task: PublishBuildArtifacts@1
@@ -80,6 +80,6 @@ jobs:
         condition: failed()
         continueOnError: True
         inputs:
-          PathtoPublish: '/home/vsts/work/1/s/cypress/component/videos'
+          PathtoPublish: '/home/vsts/work/1/s/cypress/videos/component'
           ArtifactName: videos
 
